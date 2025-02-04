@@ -3,8 +3,9 @@ const { Schema } = mongoose;
 
 const categorySchema = new Schema({
   name: { type: String, required: true },
-  description: { type: String, required: false },
+  description: { type: String, required: true },
 });
 
 const Category = mongoose.model("Category", categorySchema);
+
 module.exports = Category;
