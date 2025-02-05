@@ -1,0 +1,162 @@
+[
+  {
+    "name": "Game Boy",
+    "description": "Nintendo first mobile console",
+    "price": 120,
+    "stock": 2,
+    "category": ["retro-gaming", "electronics"],
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8f/Game-Boy-Original.jpg"
+  },
+  {
+    "name": "Nintendo Entertainment System (NES)",
+    "description": "Classic home video game console by Nintendo",
+    "price": 150,
+    "stock": 3,
+    "category": ["retro-gaming", "electronics"],
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/3a/NES-Console-Set.jpg"
+  },
+  {
+    "name": "Atari 2600",
+    "description": "Classic home video game console by Atari",
+    "price": 150,
+    "stock": 5,
+    "category": ["retro-gaming", "electronics"],
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d0/Atari_2600_console.jpg"
+  },
+  {
+    "name": "Super Nintendo",
+    "description": "Super Nintendo Entertainment System",
+    "price": 130,
+    "stock": 3,
+    "category": ["retro-gaming", "electronics"],
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8d/SNES-Console-Set.png"
+  },
+  {
+    "name": "Pac-Man (Cartouche Atari 2600)",
+    "description": "One of the most famous arcade games adapted for consoles",
+    "price": 25,
+    "stock": 5,
+    "category": ["retro-gaming"],
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/en/5/55/Pac-Man_%28Atari_2600%29_coverart.jpg"
+  },
+  {
+    "name": "Rubik’s Cube",
+    "description": "The iconic puzzle of the '80s",
+    "price": 15,
+    "stock": 10,
+    "category": ["toys-and-goodies"],
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a8/Rubik%27s_cube_scrambled.jpg"
+  },
+  {
+    "name": "Figurine Tortues Ninja (Michelangelo)",
+    "description": "Michelangelo figurine, one of the 4 Mutant Ninja Turtles",
+    "price": 30,
+    "stock": 8,
+    "category": ["toys-and-goodies"],
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/en/6/6e/Michelangelo_%28Teenage_Mutant_Ninja_Turtles%29.png"
+  },
+  {
+    "name": "Turbo Racer remote-controlled car",
+    "description": "A classic of 80's buddy racing",
+    "price": 45,
+    "stock": 6,
+    "category": ["toys-and-goodies"],
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/27/RC_car_1_10.jpg"
+  },
+  {
+    "name": "Walkman Sony TPS-L2",
+    "description": "The legendary cassette player",
+    "price": 80,
+    "stock": 4,
+    "category": ["electronics", "audio"],
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/42/Sony_TPS-L2_Walkman.jpg"
+  },
+  {
+    "name": "Rotary dial telephone",
+    "description": "The retro telephone found in every home",
+    "price": 50,
+    "stock": 5,
+    "category": ["electronics"],
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/36/Rotary_phone%2C_Western_Electric_model_500.jpg"
+  },
+  {
+    "name": "Camrecorder VHS JVC GR-C1",
+    "description": "The camcorder used in 'Back to the Future'.",
+    "price": 250,
+    "stock": 2,
+    "category": ["electronics"],
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/89/JVC_GRC1.png"
+  },
+  {
+    "name": "Aviator sunglasses",
+    "description": "Top Gun style guaranteed!",
+    "price": 30,
+    "stock": 7,
+    "category": ["fashion"],
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a7/RayBanAviator.jpg"
+  },
+  {
+    "name": "MTV 80s Cap",
+    "description": "The emblematic logo of the time",
+    "price": 25,
+    "stock": 6,
+    "category": ["fashion"],
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/21/MTV_Logo.svg"
+  },
+  {
+    "name": "T-Shirt 'I Love the 80s'",
+    "description": "The essential retro T-Shirt",
+    "price": 20,
+    "stock": 9,
+    "category": ["fashion"],
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8e/T-Shirt_I_Love_New_York.jpg"
+  },
+  {
+    "name": "Chocolate Bar",
+    "description": "Milk chocolate with caramel filling",
+    "price": 2,
+    "stock": 50,
+    "category": ["food-and-sweets"],
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Chocolate_bar_with_caramel_filling.jpg"
+  },
+  {
+    "name": "Gummy Bears",
+    "description": "Assorted fruit-flavored gummy bears",
+    "price": 3,
+    "stock": 100,
+    "category": ["food-and-sweets"],
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Gummy_Bears.jpg/1200px-Gummy_Bears.jpg"
+  },
+  {
+    "name": "Ice Cream Sandwich",
+    "description": "Vanilla ice cream between two chocolate cookies",
+    "price": 4,
+    "stock": 30,
+    "category": ["food-and-sweets"],
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Ice_Cream_Sandwich.jpg/1200px-Ice_Cream_Sandwich.jpg"
+  },
+  {
+    "name": "The Matrix Blu-ray",
+    "description": "Blu-ray edition of the 1999 science fiction film",
+    "price": 20,
+    "stock": 10,
+    "category": ["films-and-tv-series"],
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/en/c/c1/The_Matrix_Poster.jpg"
+  },
+  {
+    "name": "Star Wars: Episode IV - A New Hope DVD",
+    "description": "The original Star Wars movie, 1977",
+    "price": 15,
+    "stock": 12,
+    "category": ["films-and-tv-series"],
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_A_New_Hope_1977_theatrical_poster.jpg"
+  },
+  {
+    "name": "Friends Complete Series DVD Boxset",
+    "description": "All seasons of the classic TV sitcom Friends",
+    "price": 80,
+    "stock": 5,
+    "category": ["films-and-tv-series"],
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Friends_Complete_Series_boxset.png/800px-Friends_Complete_Series_boxset.png"
+  }
+]

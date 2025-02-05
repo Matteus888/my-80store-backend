@@ -2,16 +2,51 @@ const Product = require("../models/product.model");
 const Category = require("../models/category.model");
 const slugify = require("slugify");
 
+const getProducts = async (req, res) => {
+  try {
+    let query = {};
+
+    // Filtrer par catégorie
+    if (req.query.category) {
+      query.category = { $in: req.query.category.split(",") };
+    }
+
+    // Filtrer par prix minimum et/ou maximum
+    if (req.query.minPrice || req.query.maxPrice) {
+      query.price = {};
+      if (req.query.minPrice) query.price.$gte = parseFloat(req.query.minPrice); // $gte supérieur ou égal
+      if (req.query.maxPrice) query.price.$lte = parseFloat(req.query.maxPrice); // $lte inférieur ou égal
+    }
+
+    let products = Product.find(query);
+
+    // Si paramètre sort
+    if (req.query.sort) {
+      const sortOptions = {
+        price_asc: { price: 1 },
+        price_desc: { price: -1 },
+        name_asc: { name: 1 },
+        name_desc: { name: -1 },
+      };
+      products = products.sort(sortOptions[req.query.sort] || {});
+    }
+    res.status(200).json(await products);
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
 const createProduct = async (req, res) => {
   try {
-    const { name, description, price, categoryIds, stock, imageUrl } = req.body;
+    const { name, description, price, category, stock, imageUrl } = req.body;
 
-    if (!name || !description || !price || !categoryIds || !stock) {
+    if (!name || !description || !price || !category || !stock) {
       return res.status(400).json({ message: "Please provide all required fields." });
     }
 
-    const categories = await Category.find({ _id: { $in: categoryIds } });
-    if (categories.length !== categoryIds.length) {
+    const existingCategories = await Category.find({ slug: { $in: category } });
+    if (existingCategories.length !== category.length) {
       return res.status(404).json({ message: "One or more categories not found" });
     }
 
@@ -21,7 +56,7 @@ const createProduct = async (req, res) => {
       price,
       imageUrl,
       stock,
-      category: categoryIds,
+      category,
       slug: slugify(name, { lower: true, strict: true }),
     });
     await newProduct.save();
@@ -33,4 +68,4 @@ const createProduct = async (req, res) => {
   }
 };
 
-module.exports = { createProduct };
+module.exports = { getProducts, createProduct };
