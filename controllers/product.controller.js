@@ -2,6 +2,23 @@ const Product = require("../models/product.model");
 const Category = require("../models/category.model");
 const slugify = require("slugify");
 
+// Récupérer un produit avec son slug
+const getProductBySlug = async (req, res) => {
+  try {
+    const product = await Product.findOne({ slug: req.params.slug }).populate("category");
+
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    res.status(200).json(product);
+  } catch (error) {
+    console.error("Error fetching product:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+// Récupérer tous les produits (filtres possibles)
 const getProducts = async (req, res) => {
   try {
     let query = {};
@@ -37,6 +54,7 @@ const getProducts = async (req, res) => {
   }
 };
 
+// Créer un produit
 const createProduct = async (req, res) => {
   try {
     const { name, description, price, category, stock, imageUrl } = req.body;
@@ -68,4 +86,4 @@ const createProduct = async (req, res) => {
   }
 };
 
-module.exports = { getProducts, createProduct };
+module.exports = { getProductBySlug, getProducts, createProduct };
