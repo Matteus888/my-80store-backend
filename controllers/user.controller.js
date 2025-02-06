@@ -87,4 +87,100 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { register, login };
+// Ajouter une adresse
+const addAddress = async (req, res) => {
+  const requiredFields = ["street", "city", "postalCode", "country"];
+  if (!checkBody(req.body, requiredFields)) {
+    return res.status(400).json({ message: "All fields are required" });
+  }
+
+  try {
+    const { publicId, street, city, postalCode, country } = req.body;
+
+    const user = await User.findOne({ publicId });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    user.addresses.push({ street, city, postalCode, country });
+
+    await user.save();
+    res.status(200).json({ message: "Address added successfully", user });
+  } catch (error) {
+    console.error("Error adding address:", error);
+    res.status(500).json("Server error");
+  }
+};
+
+// Récupérer toutes les adresses
+const getAddresses = async (req, res) => {
+  try {
+    const { publicId } = req.body;
+
+    const user = await User.findOne({ publicId });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({ addresses: user.addresses });
+  } catch (error) {
+    console.error("Error getting addresses:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+// Mettre à jour une adresse
+const updateAddress = async (req, res) => {
+  // Un doute sur index
+  const requiredFields = ["index", "street", "city", "postalCode", "country"];
+  if (!checkBody(req.body, requiredFields)) {
+    return res.status(400).json({ message: "All fields are required" });
+  }
+
+  try {
+    const { publicId, index, street, city, postalCode, country } = req.body;
+
+    const user = await User.findOne({ publicId });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    if (!user.addresses[index]) {
+      return res.status(404).json({ message: "Address not found" });
+    }
+
+    user.addresses[index] = { street, city, postalCode, country };
+
+    await user.save();
+    res.status(200).json({ message: "Address updated successfully", user });
+  } catch (error) {
+    console.error("Error updating address:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+// Supprimer une adresse
+const removeAddress = async (req, res) => {
+  try {
+    const { publicId, index } = req.body;
+
+    const user = await User.findOne({ publicId });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    if (!user.addresses[index]) {
+      return res.status(404).json({ message: "Address not found" });
+    }
+
+    user.addresses.splice(index, 1);
+
+    await user.save();
+    res.status(200).json({ message: "Address removed successfully", user });
+  } catch (error) {
+    console.error("Error deleting address:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+module.exports = { register, login, addAddress, getAddresses, updateAddress, removeAddress };

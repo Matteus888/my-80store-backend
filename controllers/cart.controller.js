@@ -3,6 +3,7 @@ const Product = require("../models/product.model");
 const User = require("../models/user.model");
 const jwt = require("jsonwebtoken");
 
+// Récupérer le panier
 const getCart = async (req, res) => {
   try {
     const { publicId } = req.body;
@@ -24,6 +25,7 @@ const getCart = async (req, res) => {
   }
 };
 
+// Ajouter un produit au panier
 const addToCart = async (req, res) => {
   try {
     // const token = req.cookies.token;
@@ -56,7 +58,10 @@ const addToCart = async (req, res) => {
 
     let cart = await Cart.findOne({ user: user._id });
     if (!cart) {
-      cart = new Cart({ user: user._id, items: [{ product: product._id, quantity }] });
+      cart = new Cart({
+        user: user._id,
+        items: [{ product: product._id, quantity, price: product.price }],
+      });
     } else {
       const existingItem = cart.items.find((item) => item.product.toString() === product._id.toString());
 
@@ -66,10 +71,17 @@ const addToCart = async (req, res) => {
           return res.status(400).json({ message: `You can't add more than ${product.stock} items to your cart` });
         }
         existingItem.quantity = newQuantity;
+        existingItem.price = product.price;
       } else {
-        cart.items.push({ product: product._id, quantity });
+        cart.items.push({ product: product._id, quantity, price: product.price });
       }
     }
+
+    let totalPrice = 0;
+    cart.items.forEach((item) => {
+      totalPrice += item.quantity * item.price;
+    });
+    cart.totalPrice = totalPrice;
 
     await cart.save();
     res.status(200).json({ message: "Product added to cart", cart });
@@ -79,6 +91,7 @@ const addToCart = async (req, res) => {
   }
 };
 
+// Mettre à jour le nombre d'un article dans le panier
 const updateCartItem = async (req, res) => {
   try {
     const { publicId, slug, quantity } = req.body;
@@ -113,8 +126,15 @@ const updateCartItem = async (req, res) => {
     }
 
     item.quantity = newQuantity;
-    await cart.save();
+    item.price = product.price;
 
+    let totalPrice = 0;
+    cart.items.forEach((item) => {
+      totalPrice += item.quantity * item.price;
+    });
+    cart.totalPrice = totalPrice;
+
+    await cart.save();
     res.status(200).json({ message: "Cart updated", cart });
   } catch (error) {
     console.error("Error during updating cart:", error);
@@ -122,6 +142,7 @@ const updateCartItem = async (req, res) => {
   }
 };
 
+// Enlever un produit du panier
 const removeFromCart = async (req, res) => {
   try {
     const { publicId } = req.body;
@@ -148,6 +169,13 @@ const removeFromCart = async (req, res) => {
       return res.status(200).json({ message: "Cart is now empty" });
     }
     cart.items = updatedItems;
+
+    let totalPrice = 0;
+    cart.items.forEach((item) => {
+      totalPrice += item.quantity * item.price;
+    });
+    cart.totalPrice = totalPrice;
+
     await cart.save();
     res.status(200).json({ message: "Product removed from cart", cart });
   } catch (error) {
@@ -156,6 +184,7 @@ const removeFromCart = async (req, res) => {
   }
 };
 
+// Vider le panier
 const clearCart = async (req, res) => {
   try {
     const { publicId } = req.body;
