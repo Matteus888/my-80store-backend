@@ -40,7 +40,7 @@ const register = async (req, res) => {
 
     res.status(201).json({
       message: "User registered successfully",
-      user: { firstname: savedUser.firstname, lastname: savedUser.lastname, email: savedUser.email },
+      user: { firstname: savedUser.firstname, lastname: savedUser.lastname, email: savedUser.email, publicId: savedUser.publicId },
     });
   } catch (error) {
     console.error("Error during registration:", error);
