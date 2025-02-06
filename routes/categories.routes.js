@@ -1,12 +1,12 @@
 const express = require("express");
-const categoryController = require("../controllers/category.controller");
-
+const { getCategories, addCategory } = require("../controllers/category.controller");
+const { authenticate } = require("../middlewares/authMiddleware");
 const router = express.Router();
 
 // Route pour récupérer toutes les catégories
-router.get("/", categoryController.getCategories);
+router.get("/", authenticate("user"), getCategories);
 
 // Route pour ajouter une catégorie
-router.post("/", categoryController.addCategory);
+router.post("/", authenticate("admin"), addCategory);
 
 module.exports = router;

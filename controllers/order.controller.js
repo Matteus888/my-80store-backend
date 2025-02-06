@@ -50,19 +50,14 @@ const createOrder = async (req, res) => {
   }
 };
 
-// Récupérer toutes les commandes
+// Récupérer toutes les commandes d'un utilisateur
 const getOrders = async (req, res) => {
   try {
-    const { publicId } = req.body;
+    const { userId } = req.params;
 
-    const user = await User.findOne({ publicId });
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
+    const orders = userId ? await Order.find({ user: userId }) : await Order.find();
 
-    const orders = await Order.find({ user: user._id }).populate("items.product");
-
-    res.status(201).json({ orders });
+    res.status(200).json({ orders });
   } catch (error) {
     console.error("Error getting orders:", error);
     res.status(500).json({ message: "Server error" });
@@ -96,8 +91,12 @@ const cancelOrder = async (req, res) => {
       return res.status(404).json({ message: "Order not found" });
     }
 
-    if (order.status !== "pending") {
-      return res.status(400).json({ message: "Order cannot be cancelled" });
+    if (order.user.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ message: "You are not authorized to cancel this order" });
+    }
+
+    if (order.status === "cancelled") {
+      return res.status(400).json({ message: "Order is already cancelled" });
     }
 
     order.status = "cancelled";
@@ -120,8 +119,12 @@ const markOrderAsPaid = async (req, res) => {
       return res.status(404).json({ message: "Order not found" });
     }
 
-    if (order.status !== "pending") {
-      return res.status(400).json({ message: "Only pending orders can be paid" });
+    if (order.user.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ message: "You are not authorized to mark this order as paid" });
+    }
+
+    if (order.status === "paid") {
+      return res.status(400).json({ message: "Order is already marked as paid" });
     }
 
     order.status = "paid";
