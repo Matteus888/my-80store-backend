@@ -40,7 +40,13 @@ const register = async (req, res) => {
 
     res.status(201).json({
       message: "User registered successfully",
-      user: { firstname: savedUser.firstname, lastname: savedUser.lastname, email: savedUser.email, publicId: savedUser.publicId },
+      user: {
+        firstname: savedUser.firstname,
+        lastname: savedUser.lastname,
+        email: savedUser.email,
+        publicId: savedUser.publicId,
+        role: savedUser.role,
+      },
     });
   } catch (error) {
     console.error("Error during registration:", error);
@@ -68,18 +74,18 @@ const login = async (req, res) => {
       return res.status(401).json({ message: "Wrong password" });
     }
 
-    const token = jwt.sign({ publicId: user.publicId, email: user.email, role: user.role }, JWT_SECRET, { expiresIn: "1h" });
+    const token = jwt.sign({ publicId: user.publicId, email: user.email, role: user.role }, JWT_SECRET, { expiresIn: "15min" });
 
     res.cookie("token", token, {
       httpOnly: true,
       secure: true,
       sameSite: "Strict",
-      maxAge: 60 * 60 * 1000, // 1 heure
+      maxAge: 60 * 60 * 1000, // 1h
     });
 
     res.status(200).json({
       message: "Login successful",
-      user: { firstname: user.firstname, lastname: user.lastname, email: user.email },
+      user: { firstname: user.firstname, lastname: user.lastname, email: user.email, publicId: user.publicId, role: user.role },
     });
   } catch (error) {
     console.error("Error during login:", error);

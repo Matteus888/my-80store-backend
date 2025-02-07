@@ -2,22 +2,6 @@ const Product = require("../models/product.model");
 const Category = require("../models/category.model");
 const slugify = require("slugify");
 
-// Récupérer un produit avec son slug
-const getProductBySlug = async (req, res) => {
-  try {
-    const product = await Product.findOne({ slug: req.params.slug }).populate("category");
-
-    if (!product) {
-      return res.status(404).json({ message: "Product not found" });
-    }
-
-    res.status(200).json(product);
-  } catch (error) {
-    console.error("Error fetching product:", error);
-    res.status(500).json({ message: "Server error" });
-  }
-};
-
 // Récupérer tous les produits (filtres possibles)
 const getProducts = async (req, res) => {
   try {
@@ -54,10 +38,30 @@ const getProducts = async (req, res) => {
   }
 };
 
+// Récupérer un produit avec son slug
+const getProductBySlug = async (req, res) => {
+  try {
+    const product = await Product.findOne({ slug: req.params.slug }).populate("category");
+
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    res.status(200).json(product);
+  } catch (error) {
+    console.error("Error fetching product:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
 // Créer un produit
 const createProduct = async (req, res) => {
   try {
     const { name, description, price, category, stock, imageUrl } = req.body;
+
+    if (!Array.isArray(category)) {
+      return res.status(400).json({ message: "Category should be an array." });
+    }
 
     if (!name || !description || !price || !category || !stock) {
       return res.status(400).json({ message: "Please provide all required fields." });
