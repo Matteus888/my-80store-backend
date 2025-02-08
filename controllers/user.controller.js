@@ -93,6 +93,16 @@ const login = async (req, res) => {
   }
 };
 
+// Déconnexion
+const logout = async (req, res) => {
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "Strict",
+  });
+  return res.status(200).json({ message: "Succefully logout" });
+};
+
 // Ajouter une adresse
 const addAddress = async (req, res) => {
   const requiredFields = ["street", "city", "postalCode", "country"];
@@ -189,4 +199,4 @@ const removeAddress = async (req, res) => {
   }
 };
 
-module.exports = { register, login, addAddress, getAddresses, updateAddress, removeAddress };
+module.exports = { register, login, logout, addAddress, getAddresses, updateAddress, removeAddress };

@@ -1,5 +1,5 @@
 const express = require("express");
-const { register, login, addAddress, getAddresses, updateAddress, removeAddress } = require("../controllers/user.controller");
+const { register, login, logout, addAddress, getAddresses, updateAddress, removeAddress } = require("../controllers/user.controller");
 const { authenticate } = require("../middlewares/authMiddleware");
 const router = express.Router();
 
@@ -8,6 +8,9 @@ router.post("/register", register);
 
 // Route pour l'authentification
 router.post("/login", login);
+
+// Route pour se déconnecter
+router.post("/logout", authenticate(), logout);
 
 // Route pour ajouter une adresse à un utilisateur
 router.post("/addAddress", authenticate("user"), addAddress);
