@@ -59,11 +59,11 @@ const createProduct = async (req, res) => {
   try {
     const { name, description, price, category, stock, imageUrl } = req.body;
 
-    if (!Array.isArray(category)) {
+    if (!Array.isArray(category) || category.length === 0) {
       return res.status(400).json({ message: "Category should be an array." });
     }
 
-    if (!name || !description || !price || !category || !stock) {
+    if (!name || !description || !price || !stock) {
       return res.status(400).json({ message: "Please provide all required fields." });
     }
 
@@ -79,7 +79,6 @@ const createProduct = async (req, res) => {
       imageUrl,
       stock,
       category,
-      slug: slugify(name, { lower: true, strict: true }),
     });
     await newProduct.save();
 

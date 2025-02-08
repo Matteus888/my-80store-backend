@@ -56,20 +56,20 @@ const register = async (req, res) => {
 
 // Connexion
 const login = async (req, res) => {
-  const requiredFields = ["email", "password"];
+  const requiredFields = ["emailLog", "passwordLog"];
   if (!checkBody(req.body, requiredFields)) {
     return res.status(400).json({ message: "All fields are required" });
   }
 
-  const { email, password } = req.body;
+  const { emailLog, passwordLog } = req.body;
 
   try {
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email: emailLog });
     if (!user) {
       return res.status(404).json({ message: "Can't find user in database." });
     }
 
-    const isPasswordValid = bcrypt.compareSync(password, user.password);
+    const isPasswordValid = bcrypt.compareSync(passwordLog, user.password);
     if (!isPasswordValid) {
       return res.status(401).json({ message: "Wrong password" });
     }

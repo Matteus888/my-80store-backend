@@ -24,7 +24,7 @@ mongoose
     }, 2000);
   });
 
-mongoose.set("debug", true);
+mongoose.set("debug", false);
 
 mongoose.connection.on("connected", () => {
   console.log("MongoDB connected");
