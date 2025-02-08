@@ -15,7 +15,7 @@ const register = async (req, res) => {
   const { firstname, lastname, email, password } = req.body;
 
   try {
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({ email: { $regex: new RegExp(`^${email}$`, "i") } });
     if (existingUser) {
       return res.status(409).json({ message: "This user already exists" });
     }
@@ -64,7 +64,7 @@ const login = async (req, res) => {
   const { emailLog, passwordLog } = req.body;
 
   try {
-    const user = await User.findOne({ email: emailLog });
+    const user = await User.findOne({ email: { $regex: new RegExp(`^${emailLog}$`, "i") } });
     if (!user) {
       return res.status(404).json({ message: "Can't find user in database." });
     }

@@ -4,10 +4,10 @@ const { authenticate } = require("../middlewares/authMiddleware");
 const router = express.Router();
 
 // Route pour récupérer tous les produits
-router.get("/", authenticate(), getProducts);
+router.get("/", getProducts);
 
 // Route pour récupérer un produit
-router.get("/:slug", authenticate(), getProductBySlug);
+router.get("/:slug", getProductBySlug);
 
 // Route pour ajouter un produit
 router.post("/", authenticate("admin"), createProduct);

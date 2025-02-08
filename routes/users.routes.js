@@ -10,7 +10,7 @@ router.post("/register", register);
 router.post("/login", login);
 
 // Route pour se déconnecter
-router.post("/logout", authenticate(), logout);
+router.post("/logout", logout);
 
 // Route pour ajouter une adresse à un utilisateur
 router.post("/addAddress", authenticate("user"), addAddress);
