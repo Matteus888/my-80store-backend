@@ -19,7 +19,12 @@ const getProducts = async (req, res) => {
       if (req.query.maxPrice) query.price.$lte = parseFloat(req.query.maxPrice); // $lte inférieur ou égal
     }
 
-    let products = Product.find(query);
+    // Pagination
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 9;
+    const skip = (page - 1) * limit;
+
+    let products = Product.find(query).skip(skip).limit(limit);
 
     // Si paramètre sort
     if (req.query.sort) {
@@ -31,7 +36,11 @@ const getProducts = async (req, res) => {
       };
       products = products.sort(sortOptions[req.query.sort] || {});
     }
-    res.status(200).json(await products);
+
+    const totalProducts = await Product.countDocuments(query);
+    const totalPages = Math.ceil(totalProducts / limit);
+
+    res.status(200).json({ products: await products, totalPages, currentPage: page });
   } catch (error) {
     console.error("Error fetching products:", error);
     res.status(500).json({ message: "Server error" });
