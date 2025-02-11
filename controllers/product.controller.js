@@ -40,7 +40,11 @@ const getProducts = async (req, res) => {
     const totalProducts = await Product.countDocuments(query);
     const totalPages = Math.ceil(totalProducts / limit);
 
-    res.status(200).json({ products: await products, totalPages, currentPage: page });
+    res.status(200).json({
+      products: await products,
+      totalPages,
+      currentPage: page,
+    });
   } catch (error) {
     console.error("Error fetching products:", error);
     res.status(500).json({ message: "Server error" });
