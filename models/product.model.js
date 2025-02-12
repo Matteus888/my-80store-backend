@@ -11,7 +11,7 @@ const productSchema = new Schema(
     discount: { type: Number, min: 0, max: 100 },
     category: [{ type: String, required: true }],
     stock: { type: Number, required: true, min: 0 },
-    imageUrl: { type: String },
+    imageUrl: [{ type: String, required: true }],
   },
   { timestamps: true }
 );

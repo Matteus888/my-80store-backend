@@ -70,14 +70,18 @@ const getProductBySlug = async (req, res) => {
 // Créer un produit
 const createProduct = async (req, res) => {
   try {
-    const { name, description, price, category, stock, imageUrl } = req.body;
+    const { name, description, price, category, stock, imageUrls } = req.body;
+
+    if (!name || !description || !price || !stock) {
+      return res.status(400).json({ message: "Please provide all required fields." });
+    }
 
     if (!Array.isArray(category) || category.length === 0) {
       return res.status(400).json({ message: "Category should be an array." });
     }
 
-    if (!name || !description || !price || !stock) {
-      return res.status(400).json({ message: "Please provide all required fields." });
+    if (!Array.isArray(imageUrls) || imageUrls.length === 0) {
+      return res.status(400).json({ message: "At least one image URL is required." });
     }
 
     const existingCategories = await Category.find({ slug: { $in: category } });
@@ -89,7 +93,7 @@ const createProduct = async (req, res) => {
       name,
       description,
       price,
-      imageUrl,
+      imageUrls,
       stock,
       category,
     });
