@@ -5,13 +5,14 @@ const { Schema } = mongoose;
 const productSchema = new Schema(
   {
     name: { type: String, required: true },
+    brand: { type: String, required: true },
     slug: { type: String, unique: true },
     description: { type: String, required: true },
     price: { type: Number, required: true, min: 0 },
     discount: { type: Number, min: 0, max: 100 },
     category: [{ type: String, required: true }],
     stock: { type: Number, required: true, min: 0 },
-    imageUrl: [{ type: String, required: true }],
+    imageUrls: [{ type: String, required: true }],
   },
   { timestamps: true }
 );

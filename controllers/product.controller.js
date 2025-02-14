@@ -1,6 +1,5 @@
 const Product = require("../models/product.model");
 const Category = require("../models/category.model");
-const slugify = require("slugify");
 
 // Récupérer tous les produits (filtres possibles)
 const getProducts = async (req, res) => {
@@ -70,9 +69,9 @@ const getProductBySlug = async (req, res) => {
 // Créer un produit
 const createProduct = async (req, res) => {
   try {
-    const { name, description, price, category, stock, imageUrls } = req.body;
+    const { name, brand, description, price, category, stock, imageUrls } = req.body;
 
-    if (!name || !description || !price || !stock) {
+    if (!name || !brand || !description || !price || !stock) {
       return res.status(400).json({ message: "Please provide all required fields." });
     }
 
@@ -91,6 +90,7 @@ const createProduct = async (req, res) => {
 
     const newProduct = new Product({
       name,
+      brand,
       description,
       price,
       imageUrls,

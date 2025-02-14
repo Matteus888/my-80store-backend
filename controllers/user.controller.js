@@ -29,13 +29,13 @@ const register = async (req, res) => {
 
     const savedUser = await newUser.save();
 
-    const token = jwt.sign({ publicId: savedUser.publicId, email: savedUser.email, role: savedUser.role }, JWT_SECRET, { expiresIn: "1h" });
+    const token = jwt.sign({ publicId: savedUser.publicId, email: savedUser.email, role: savedUser.role }, JWT_SECRET, { expiresIn: "1d" });
 
     res.cookie("token", token, {
       httpOnly: true,
       secure: true,
       sameSite: "Strict",
-      maxAge: 60 * 60 * 1000, // 1 heure
+      maxAge: 24 * 60 * 60 * 1000, // 1 jour
     });
 
     res.status(201).json({
@@ -74,13 +74,13 @@ const login = async (req, res) => {
       return res.status(401).json({ message: "Wrong password" });
     }
 
-    const token = jwt.sign({ publicId: user.publicId, email: user.email, role: user.role }, JWT_SECRET, { expiresIn: "15min" });
+    const token = jwt.sign({ publicId: user.publicId, email: user.email, role: user.role }, JWT_SECRET, { expiresIn: "1d" });
 
     res.cookie("token", token, {
       httpOnly: true,
       secure: true,
       sameSite: "Strict",
-      maxAge: 60 * 60 * 1000, // 1h
+      maxAge: 24 * 60 * 60 * 1000, // 1 jour
     });
 
     res.status(200).json({
@@ -101,6 +101,23 @@ const logout = async (req, res) => {
     sameSite: "Strict",
   });
   return res.status(200).json({ message: "Succefully logout" });
+};
+
+// Récupérer toutes les infos
+const getInfos = async (req, res) => {
+  try {
+    const { publicId } = req.user;
+
+    const user = await User.findOne({ publicId });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({ user });
+  } catch (error) {
+    console.error("Error getting infos:", error);
+    res.status(500).json("Server error");
+  }
 };
 
 // Ajouter une adresse
@@ -199,4 +216,4 @@ const removeAddress = async (req, res) => {
   }
 };
 
-module.exports = { register, login, logout, addAddress, getAddresses, updateAddress, removeAddress };
+module.exports = { register, login, logout, getInfos, addAddress, getAddresses, updateAddress, removeAddress };

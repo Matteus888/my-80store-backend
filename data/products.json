@@ -1,162 +1,274 @@
 [
   {
     "name": "Game Boy",
-    "description": "Nintendo first mobile console",
+    "brand": "Nintendo",
+    "description": "The Game Boy is a handheld game console launched in the Japanese home market on April 21, 1989. The concept proved highly successful and the Game Boy became a cultural icon of the 1990s and early 2000s.",
     "price": 120,
     "stock": 2,
     "category": ["retro-gaming", "electronics"],
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8f/Game-Boy-Original.jpg"
+    "imageUrls": [
+      "https://upload.wikimedia.org/wikipedia/commons/8/8f/Game-Boy-Original.jpg",
+      "https://images.nintendolife.com/48574f8b3f601/top-50-game-boy-games.900x.jpg",
+      "https://www.telegraph.co.uk/content/dam/technology/2019/11/21/1280px-Game_Boy_and_Tetris_trans_NvBQzQNjv4BqhM6x14-kxSZWOf4m9H_ihJSKfGBs0s5zmpl1FcK3tI8.jpg?imwidth=680"
+    ]
   },
   {
-    "name": "Nintendo Entertainment System (NES)",
-    "description": "Classic home video game console by Nintendo",
+    "name": "NES",
+    "brand": "Nintendo",
+    "description": "The Nintendo Entertainment System (NES) is an 8-bit home video game console released in Japan on July 15, 1983, as the Family Computer (Famicom).",
     "price": 150,
     "stock": 3,
     "category": ["retro-gaming", "electronics"],
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/3a/NES-Console-Set.jpg"
+    "imageUrls": [
+      "https://i.ebayimg.com/images/g/gHcAAOSwAmBfq3Bv/s-l1600.webp",
+      "https://i.ebayimg.com/images/g/qjYAAOSwVFhfq3Bh/s-l960.webp",
+      "https://i.ebayimg.com/images/g/MYAAAOSwGCxfq3BY/s-l960.webp",
+      "https://i.ebayimg.com/images/g/r1UAAOSwV3Rfq3Bl/s-l960.webp"
+    ]
   },
   {
     "name": "Atari 2600",
-    "description": "Classic home video game console by Atari",
+    "brand": "Atari Inc.",
+    "description": "The Atari 2600 is a home video game console released in September 1977 as the Atari Video Computer System (Atari VCS). It popularized microprocessor-based hardware and games stored on swappable ROM cartridges, a format first used with the Fairchild Channel F in 1976.",
     "price": 150,
     "stock": 5,
     "category": ["retro-gaming", "electronics"],
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d0/Atari_2600_console.jpg"
+    "imageUrls": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Atari-2600-Wood-4Sw-Set.png/1920px-Atari-2600-Wood-4Sw-Set.png",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Atari-2600-Woody-FL.jpg/1920px-Atari-2600-Woody-FL.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Combat.svg/1280px-Combat.svg.png",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Atari-2600-Joystick.jpg/800px-Atari-2600-Joystick.jpg"
+    ]
   },
   {
-    "name": "Super Nintendo",
-    "description": "Super Nintendo Entertainment System",
+    "name": "Super Nintendo (SNES)",
+    "brand": "Nintendo",
+    "description": "The Super NES is a 16-bit home video game console released in 1990 in Japan. The console introduced advanced graphics and sound capabilities compared with other systems at the time.",
     "price": 130,
     "stock": 3,
     "category": ["retro-gaming", "electronics"],
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8d/SNES-Console-Set.png"
+    "imageUrls": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Nintendo-Super-Famicom-Set-FL.jpg/1920px-Nintendo-Super-Famicom-Set-FL.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/SNES-SFAM-Cartridges.jpg/1920px-SNES-SFAM-Cartridges.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/1/16/Hyundai_Super_Comboy_-_Main_Body.jpg"
+    ]
   },
   {
-    "name": "Pac-Man (Cartouche Atari 2600)",
-    "description": "One of the most famous arcade games adapted for consoles",
+    "name": "Pac-Man (Atari 2600 cartridge)",
+    "brand": "Atari Inc.",
+    "description": "Pac-Man is a 1982 maze video game developed and published by Atari, Inc. under official license by Namco, and an adaptation of the 1980 arcade game Pac-Man. The player controls the title character, who attempts to consume all of the wafers in a maze while avoiding four ghosts that pursue him.",
     "price": 25,
     "stock": 5,
     "category": ["retro-gaming"],
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/en/5/55/Pac-Man_%28Atari_2600%29_coverart.jpg"
+    "imageUrls": [
+      "https://upload.wikimedia.org/wikipedia/en/0/03/PacMan2600box.jpg",
+      "https://i.ytimg.com/vi/9srvn09IXNk/hqdefault.jpg",
+      "https://atariage.com/2600/carts/c_PacMan_Picture_1987_front.jpg"
+    ]
   },
   {
     "name": "Rubik’s Cube",
-    "description": "The iconic puzzle of the '80s",
+    "brand": "Rubik's Brand Ltd",
+    "description": "The Rubik's Cube is a 3D combination puzzle invented in 1974 by Hungarian sculptor and professor of architecture Ernő Rubik. On the original, classic Rubik's Cube, each of the six faces was covered by nine stickers, with each face in one of six solid colours: white, red, blue, orange, green, and yellow.",
     "price": 15,
     "stock": 10,
     "category": ["toys-and-goodies"],
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a8/Rubik%27s_cube_scrambled.jpg"
+    "imageUrls": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Rubik%27s_cube_colors.svg/1280px-Rubik%27s_cube_colors.svg.png",
+      "https://upload.wikimedia.org/wikipedia/commons/6/61/Rubiks_cube_solved.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Rubik%27s_cube.svg/800px-Rubik%27s_cube.svg.png"
+    ]
   },
   {
-    "name": "Figurine Tortues Ninja (Michelangelo)",
+    "name": "Michaelangelo 1988 Action figure",
+    "brand": "Playmates Toys",
     "description": "Michelangelo figurine, one of the 4 Mutant Ninja Turtles",
-    "price": 30,
-    "stock": 8,
+    "price": 70,
+    "stock": 4,
     "category": ["toys-and-goodies"],
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/en/6/6e/Michelangelo_%28Teenage_Mutant_Ninja_Turtles%29.png"
+    "imageUrls": [
+      "https://i.ebayimg.com/thumbs/images/g/F7kAAOSwl69no~d~/s-l500.jpg",
+      "https://i.ebayimg.com/images/g/5agAAOSwbOJno~eC/s-l1600.webp"
+    ]
   },
   {
-    "name": "Turbo Racer remote-controlled car",
-    "description": "A classic of 80's buddy racing",
+    "name": "RC Turbo Racer 27 Lamborghini",
+    "brand": "Radio Shack",
+    "description": "Experience the thrill of this Radio Shack RC Turbo Racer in Lamborghini design. Made with durable plastic, this 2WD car is powered by batteries. With a 27MHz frequency and no controller, this car is perfect for collectors and enthusiasts alike. The white color gives it a classic look that will surely catch the eye of any onlooker.",
     "price": 45,
     "stock": 6,
     "category": ["toys-and-goodies"],
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/27/RC_car_1_10.jpg"
+    "imageUrls": [
+      "https://i.ebayimg.com/images/g/K6AAAOSw2U5mUXkq/s-l1600.webp",
+      "https://i.ebayimg.com/images/g/PH0AAOSwZYpmUXku/s-l960.webp",
+      "https://i.ebayimg.com/images/g/1TMAAOSwI1hmUXkq/s-l960.webp"
+    ]
   },
   {
-    "name": "Walkman Sony TPS-L2",
-    "description": "The legendary cassette player",
-    "price": 80,
+    "name": "Walkman TPS-L2",
+    "brand": "Sony",
+    "description": "Walkman is a brand of portable audio players manufactured and marketed by Japanese company Sony since 1979. The original Walkman started out as a portable cassette player and the brand was later extended to serve most of Sony's portable audio devices.",
+    "price": 200,
     "stock": 4,
     "category": ["electronics", "audio"],
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/42/Sony_TPS-L2_Walkman.jpg"
+    "imageUrls": [
+      "https://i.ebayimg.com/images/g/83wAAeSwATFnpgbH/s-l960.webp",
+      "https://i.ebayimg.com/images/g/jYUAAeSwWbhnpgbL/s-l960.webp",
+      "https://i.ebayimg.com/images/g/-E8AAeSwerNnpgbH/s-l960.webp"
+    ]
   },
   {
-    "name": "Rotary dial telephone",
-    "description": "The retro telephone found in every home",
-    "price": 50,
+    "name": "702BM Princess Rotary Dial Telephone",
+    "brand": "Western Electric",
+    "description": "The Princess telephone was introduced by the Bell System in 1959. It was a compact telephone designed for convenient use in the bedroom, and contained a light-up dial for use as a night-light. It was commonly advertised with the slogan \"It's little...It's lovely...It lights\", which was suggested by Robert Karl Lethin, an AT&T employee.",
+    "price": 25,
     "stock": 5,
     "category": ["electronics"],
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/36/Rotary_phone%2C_Western_Electric_model_500.jpg"
+    "imageUrls": [
+      "https://i.ebayimg.com/images/g/RHUAAOSw31pkPZSg/s-l960.webp",
+      "https://i.ebayimg.com/images/g/pt0AAOSws7JkPZSk/s-l960.webp"
+    ]
   },
   {
-    "name": "Camrecorder VHS JVC GR-C1",
-    "description": "The camcorder used in 'Back to the Future'.",
-    "price": 250,
+    "name": "VHS GR-C1 VideoMovie",
+    "brand": "JVC",
+    "description": "The JVC GR-C1 VideoMovie was a camcorder released in March 1984. It was notable as the second consumer-grade all-in-one camcorder after 1983 Sony Betamovie, and as the first VHS-C camcorder. This camcorder was used in 'Back to the Future'.",
+    "price": 150,
     "stock": 2,
     "category": ["electronics"],
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/89/JVC_GRC1.png"
+    "imageUrls": [
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/JVC_Victor_GR-C1_camcorder_side_rear_view.jpg/1280px-JVC_Victor_GR-C1_camcorder_side_rear_view.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/JVC_Victor_GR-C1_camcorder_front_side_view.jpg/800px-JVC_Victor_GR-C1_camcorder_front_side_view.jpg"
+    ]
   },
   {
     "name": "Aviator sunglasses",
-    "description": "Top Gun style guaranteed!",
-    "price": 30,
+    "brand": "Ray-Ban",
+    "description": "Ray-Ban Aviator Classic sunglasses are a timeless model that combines classic pilot shape with gold metal frame. These sunglasses feature classic g-15 green lenses, which offer a traditional look and feel while still providing excellent sun protection. Top Gun style guaranteed!",
+    "price": 200,
     "stock": 7,
     "category": ["fashion"],
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a7/RayBanAviator.jpg"
+    "imageUrls": [
+      "https://assets2.sunglasshut.com/cdn-record-files-pi/f2a2b356-cf47-4e4c-bd0e-a35900057b03/453350a3-3444-4336-95dd-ad1b007c0da8/0RB3025__L0205__STD__shad__qt.png?impolicy=SGH_bgtransparent&width=3072",
+      "https://assets2.sunglasshut.com/cdn-record-files-pi/f2a2b356-cf47-4e4c-bd0e-a35900057b03/d50aff28-bfb5-44a3-bce5-ad1b007c1ac5/0RB3025__L0205__STD__shad__fr.png?impolicy=SGH_bgtransparent&width=3072",
+      "https://assets2.sunglasshut.com/cdn-record-files-pi/f2a2b356-cf47-4e4c-bd0e-a35900057b03/bdc7115f-c29f-4d23-ac77-ad1b007c153a/0RB3025__L0205__STD__shad__lt.png?impolicy=SGH_bgtransparent&width=3072",
+      "https://assets2.sunglasshut.com/cdn-record-files-pi/f2a2b356-cf47-4e4c-bd0e-a35900057b03/5a6eaa3c-5682-495a-855c-ad1b007c0f5e/0RB3025__L0205__STD__shad__cfr.png?impolicy=SGH_bgtransparent&width=3072"
+    ]
   },
   {
     "name": "MTV 80s Cap",
-    "description": "The emblematic logo of the time",
+    "brand": "Popfunk",
+    "description": "MTV - Logo 80'S Checker Party Foam Snapback Trucker Hat: Unleash your inner pop culture aficionado with this trendy foam trucker hat featuring iconic symbols and references from your favorite movies, TV shows, and music.",
     "price": 25,
     "stock": 6,
     "category": ["fashion"],
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/21/MTV_Logo.svg"
+    "imageUrls": [
+      "https://i5.walmartimages.com/seo/MTV-Logo-80-S-Checker-Party-Foam-Snapback-Trucker-Hat-Unisex-for-Men-and-Women_ba4e3781-cb1e-4afd-8bfe-0975a0c8d2ff.0430e525029f6c4f02af1aed3749af20.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+      "https://i5.walmartimages.com/asr/36e48f28-d0ba-4144-8143-93fbb63efd45.6e8fcdd107763d5a35721a514a561b42.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF",
+      "https://i5.walmartimages.com/asr/f1e832f0-a861-4984-92b3-d4a72c1267c6.1cedf7bd604b237071904c59158db935.jpeg?odnHeight=2000&odnWidth=2000&odnBg=FFFFFF"
+    ]
   },
   {
-    "name": "T-Shirt 'I Love the 80s'",
-    "description": "The essential retro T-Shirt",
-    "price": 20,
-    "stock": 9,
-    "category": ["fashion"],
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/8e/T-Shirt_I_Love_New_York.jpg"
-  },
-  {
-    "name": "Chocolate Bar",
-    "description": "Milk chocolate with caramel filling",
-    "price": 2,
-    "stock": 50,
-    "category": ["food-and-sweets"],
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Chocolate_bar_with_caramel_filling.jpg"
-  },
-  {
-    "name": "Gummy Bears",
-    "description": "Assorted fruit-flavored gummy bears",
-    "price": 3,
-    "stock": 100,
-    "category": ["food-and-sweets"],
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/31/Gummy_Bears.jpg/1200px-Gummy_Bears.jpg"
-  },
-  {
-    "name": "Ice Cream Sandwich",
-    "description": "Vanilla ice cream between two chocolate cookies",
-    "price": 4,
-    "stock": 30,
-    "category": ["food-and-sweets"],
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Ice_Cream_Sandwich.jpg/1200px-Ice_Cream_Sandwich.jpg"
-  },
-  {
-    "name": "The Matrix Blu-ray",
-    "description": "Blu-ray edition of the 1999 science fiction film",
-    "price": 20,
-    "stock": 10,
-    "category": ["films-and-tv-series"],
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/en/c/c1/The_Matrix_Poster.jpg"
-  },
-  {
-    "name": "Star Wars: Episode IV - A New Hope DVD",
-    "description": "The original Star Wars movie, 1977",
-    "price": 15,
-    "stock": 12,
-    "category": ["films-and-tv-series"],
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/en/a/a2/Star_Wars_A_New_Hope_1977_theatrical_poster.jpg"
-  },
-  {
-    "name": "Friends Complete Series DVD Boxset",
-    "description": "All seasons of the classic TV sitcom Friends",
-    "price": 80,
+    "name": "Star Wars: Episode IV - A New Hope VHS",
+    "brand": "CBS FOX",
+    "description": "Star Wars (later retitled Star Wars: Episode IV – A New Hope) is a 1977 American epic space opera film written and directed by George Lucas, produced by Lucasfilm and distributed by Twentieth Century-Fox.",
+    "price": 50,
     "stock": 5,
     "category": ["films-and-tv-series"],
-    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Friends_Complete_Series_boxset.png/800px-Friends_Complete_Series_boxset.png"
+    "imageUrls": [
+      "https://i.etsystatic.com/12886154/r/il/9103c7/2136766878/il_794xN.2136766878_kr4w.jpg",
+      "https://i.etsystatic.com/12886154/r/il/5161ca/2184320575/il_794xN.2184320575_th6a.jpg",
+      "https://i.etsystatic.com/12886154/r/il/7bdfce/2184320591/il_794xN.2184320591_f9eh.jpg"
+    ]
+  },
+  {
+    "name": "Star Wars: Episode V - The Empire Strikes Back VHS",
+    "brand": "CBS FOX",
+    "description": "The Empire Strikes Back is a 1980 American epic space opera film directed by Irvin Kershner from a screenplay by Leigh Brackett and Lawrence Kasdan, based on a story by George Lucas. The sequel to Star Wars (1977), it is the second film in the Star Wars film series and the fifth chronological chapter of the \"Skywalker Saga\".",
+    "price": 50,
+    "stock": 5,
+    "category": ["films-and-tv-series"],
+    "imageUrls": [
+      "https://i.ebayimg.com/images/g/OZwAAOSwqlJnows5/s-l960.webp",
+      "https://i.ebayimg.com/images/g/4Q4AAOSwUPVnows5/s-l960.webp",
+      "https://i.ebayimg.com/images/g/hOQAAOSw4Axnows5/s-l960.webp"
+    ]
+  },
+  {
+    "name": "Star Wars: Episode VI - Return of the Jedi VHS",
+    "brand": "CBS FOX",
+    "description": "Return of the Jedi is a 1983 American epic space opera film directed by Richard Marquand from a screenplay by Lawrence Kasdan and George Lucas. The sequel to The Empire Strikes Back (1980), it is the third installment in the original Star Wars trilogy and the sixth chronological film in the \"Skywalker Saga\".",
+    "price": 50,
+    "stock": 5,
+    "category": ["films-and-tv-series"],
+    "imageUrls": [
+      "https://i.ebayimg.com/images/g/A70AAOSwTYVnpV9s/s-l1600.webp",
+      "https://i.ebayimg.com/images/g/kZQAAOSw3rNnpV9x/s-l960.webp",
+      "https://i.ebayimg.com/images/g/28YAAOSw4oFnpV9u/s-l960.webp"
+    ]
+  },
+  {
+    "name": "The Goonies VHS",
+    "brand": "Warner Home Video",
+    "description": "The Goonies is a 1985 American adventure comedy film directed and co-produced by Richard Donner from a screenplay by Chris Columbus based on a story by Steven Spielberg and starring Sean Astin, Josh Brolin, Jeff Cohen, Corey Feldman, Kerri Green, Martha Plimpton and Ke Huy Quan with supporting roles done by John Matuszak, Anne Ramsey, Robert Davi, and Joe Pantoliano.",
+    "price": 35,
+    "stock": 6,
+    "category": ["films-and-tv-series"],
+    "imageUrls": [
+      "https://i.ebayimg.com/images/g/tWcAAeSwWN9nq5Gm/s-l960.webp",
+      "https://i.ebayimg.com/images/g/wNYAAeSwfR9nq5Gm/s-l960.webp",
+      "https://i.ebayimg.com/images/g/1H4AAeSwKsNnq5Go/s-l960.webp"
+    ]
+  },
+  {
+    "name": "E.T. the Extra-Terrestrial VHS",
+    "brand": "MCA Home Video",
+    "description": "E.T. the Extra-Terrestrial is a 1982 American science fiction film produced and directed by Steven Spielberg and written by Melissa Mathison. It tells the story of Elliott, a boy who befriends an extraterrestrial he names E.T. who has been stranded on Earth.",
+    "price": 10,
+    "stock": 4,
+    "category": ["films-and-tv-series"],
+    "imageUrls": [
+      "https://i.ebayimg.com/images/g/meoAAOSwWfBjMD6T/s-l1600.webp",
+      "https://i.ebayimg.com/images/g/NwUAAOSw2aJjMD6k/s-l960.webp",
+      "https://i.ebayimg.com/images/g/a6AAAOSwm7FjMD6t/s-l960.webp"
+    ]
+  },
+  {
+    "name": "Back to the Future - Part I VHS",
+    "brand": "MCA Home Video",
+    "description": "Back to the Future is a 1985 American science fiction film directed by Robert Zemeckis and written by Zemeckis and Bob Gale. It stars Michael J. Fox, Christopher Lloyd, Lea Thompson, Crispin Glover, and Thomas F. Wilson. Set in 1985, it follows Marty McFly, a teenager accidentally sent back to 1955 in a time-traveling DeLorean automobile built by his eccentric scientist friend Emmett \"Doc\" Brown, where he inadvertently prevents his future parents from falling in love – threatening his own existence – and is forced to reconcile them and somehow get back to the future.",
+    "price": 15,
+    "stock": 3,
+    "category": ["films-and-tv-series"],
+    "imageUrls": [
+      "https://i.ebayimg.com/images/g/IvwAAOSwZ6hjYZLo/s-l1600.webp",
+      "https://i.ebayimg.com/images/g/r~YAAOSwKsljYZL1/s-l1600.webp"
+    ]
+  },
+  {
+    "name": "Back to the Future - Part II VHS",
+    "brand": "MCA Home Video",
+    "description": "Back to the Future Part II is a 1989 American science fiction film directed by Robert Zemeckis from a screenplay by Bob Gale; both wrote the story. It is a sequel to the 1985 film Back to the Future and the second installment in the Back to the Future franchise. The film stars Michael J. Fox, Christopher Lloyd, Lea Thompson and Thomas F. Wilson, with Elisabeth Shue and Jeffrey Weissman in supporting roles. It follows Marty McFly and his friend Doctor Emmett \"Doc\" Brown as they travel from 1985 to 2015 to prevent the former's son from tarnishing their family's future.",
+    "price": 15,
+    "stock": 3,
+    "category": ["films-and-tv-series"],
+    "imageUrls": [
+      "https://i.ebayimg.com/images/g/rbwAAOSwBlBnki~e/s-l1600.webp",
+      "https://i.ebayimg.com/images/g/SskAAOSwKi9nki~4/s-l960.webp",
+      "https://i.ebayimg.com/images/g/rc4AAOSwv8tnki~4/s-l960.webp"
+    ]
+  },
+  {
+    "name": "Back to the Future - Part III VHS",
+    "brand": "MCA Home Video",
+    "description": "Back to the Future Part III is a 1990 American science fiction Western film and the third installment of the Back to the Future trilogy. The film was directed by Robert Zemeckis, and stars Michael J. Fox, Christopher Lloyd, Mary Steenburgen, Thomas F. Wilson, and Lea Thompson. The film continues immediately following Back to the Future Part II (1989); while stranded in 1955 during his time travel adventures, Marty McFly discovers that his friend Dr. Emmett \"Doc\" Brown, trapped in 1885, was killed by Buford \"Mad Dog\" Tannen, Biff's great-grandfather. Marty travels to 1885 to rescue Doc and return once again to 1985, but matters are complicated when Doc falls in love with Clara Clayton.",
+    "price": 15,
+    "stock": 3,
+    "category": ["films-and-tv-series"],
+    "imageUrls": [
+      "https://i.ebayimg.com/images/g/T5gAAOSwk31jl-Ym/s-l1600.webp",
+      "https://i.ebayimg.com/images/g/sZ4AAOSwfRBjl-Yo/s-l960.webp",
+      "https://i.ebayimg.com/images/g/oMEAAOSwiZ9jl-Yw/s-l960.webp"
+    ]
   }
 ]
