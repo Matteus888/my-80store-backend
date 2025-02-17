@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 // Récupérer le panier
 const getCart = async (req, res) => {
   try {
-    const { publicId } = req.body;
+    const publicId = req.user.publicId;
 
     const user = await User.findOne({ publicId });
     if (!user) {
@@ -28,14 +28,8 @@ const getCart = async (req, res) => {
 // Ajouter un produit au panier
 const addToCart = async (req, res) => {
   try {
-    // const token = req.cookies.token;
-    // if (!token) {
-    //   return res.status(401).json({ message: "No token provided" });
-    // }
-
-    // const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    // const publicId = decoded.publicId;
-    const { publicId, slug } = req.body;
+    const { slug } = req.body;
+    const publicId = req.user.publicId;
     const quantity = parseInt(req.body.quantity, 10);
 
     if (isNaN(quantity) || quantity <= 0) {
@@ -94,7 +88,8 @@ const addToCart = async (req, res) => {
 // Mettre à jour le nombre d'un article dans le panier
 const updateCartItem = async (req, res) => {
   try {
-    const { publicId, slug, quantity } = req.body;
+    const { slug, quantity } = req.body;
+    const publicId = req.user.publicId;
     const newQuantity = parseInt(quantity, 10);
 
     if (isNaN(newQuantity) || newQuantity <= 0) {
@@ -145,7 +140,7 @@ const updateCartItem = async (req, res) => {
 // Enlever un produit du panier
 const removeFromCart = async (req, res) => {
   try {
-    const { publicId } = req.body;
+    const publicId = req.user.publicId;
     const { slug } = req.params;
 
     const user = await User.findOne({ publicId });
@@ -187,7 +182,7 @@ const removeFromCart = async (req, res) => {
 // Vider le panier
 const clearCart = async (req, res) => {
   try {
-    const { publicId } = req.body;
+    const publicId = req.user.publicId;
 
     const user = await User.findOne({ publicId });
     if (!user) {

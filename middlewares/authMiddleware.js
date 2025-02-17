@@ -28,36 +28,4 @@ const authenticate = (requiredRole) => {
   };
 };
 
-// Authenticate juste pour test
-// const authentic = (req, res, next) => {
-//   const simulatedUser = {
-//     publicId: "67813621-3221-410e-8027-2a0912b5f41f",
-//     role: "admin",
-//   };
-//   req.user = simulatedUser;
-//   next();
-// };
-
-// Middleware pour vérifier le rôle de l'utilisateur
-// const authorizeRole = (roles) => {
-//   return async (req, res, next) => {
-//     try {
-//       const user = await User.findOne({ publicId: req.user.publicId });
-//       if (!user) {
-//         return res.status(404).json({ message: "User not found" });
-//       }
-
-//       if (!roles.includes(user.role)) {
-//         return res.status(403).json({ message: "Access denied. Insufficient permissions" });
-//       }
-
-//       req.user = user;
-//       next();
-//     } catch (error) {
-//       console.error("Role verification failed:", error);
-//       res.status(500).json({ message: "Server error" });
-//     }
-//   };
-// };
-
 module.exports = { authenticate };
