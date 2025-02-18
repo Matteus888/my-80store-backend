@@ -30,11 +30,6 @@ const addToCart = async (req, res) => {
   try {
     const { slug } = req.body;
     const publicId = req.user.publicId;
-    const quantity = parseInt(req.body.quantity, 10);
-
-    if (isNaN(quantity) || quantity <= 0) {
-      return res.status(400).json({ message: "Quantity must be a valid number greater than 0" });
-    }
 
     const user = await User.findOne({ publicId });
     if (!user) {
@@ -46,36 +41,31 @@ const addToCart = async (req, res) => {
       return res.status(404).json({ message: "Product not found" });
     }
 
-    if (product.stock < quantity) {
-      return res.status(400).json({ message: `Only ${product.stock} items available in stock` });
+    if (product.stock < 1) {
+      return res.status(400).json({ message: "Product is out of stock" });
     }
 
     let cart = await Cart.findOne({ user: user._id });
     if (!cart) {
       cart = new Cart({
         user: user._id,
-        items: [{ product: product._id, quantity, price: product.price }],
+        items: [{ product: product._id, quantity: 1, price: product.price }],
+        totalPrice: product.price,
       });
     } else {
       const existingItem = cart.items.find((item) => item.product.toString() === product._id.toString());
 
       if (existingItem) {
-        const newQuantity = existingItem.quantity + quantity;
-        if (newQuantity > product.stock) {
-          return res.status(400).json({ message: `You can't add more than ${product.stock} items to your cart` });
+        if (existingItem.quantity + 1 > product.stock) {
+          return res.status(400).json({ message: `You can't add more than ${product.stock} items to your cart. Insufficient stock.` });
         }
-        existingItem.quantity = newQuantity;
-        existingItem.price = product.price;
+        existingItem.quantity += 1;
       } else {
-        cart.items.push({ product: product._id, quantity, price: product.price });
+        cart.items.push({ product: product._id, quantity: 1, price: product.price });
       }
     }
 
-    let totalPrice = 0;
-    cart.items.forEach((item) => {
-      totalPrice += item.quantity * item.price;
-    });
-    cart.totalPrice = totalPrice;
+    cart.totalPrice = cart.items.reduce((sum, item) => sum + item.quantity * item.price, 0);
 
     await cart.save();
     res.status(200).json({ message: "Product added to cart", cart });
