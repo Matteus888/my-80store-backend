@@ -106,4 +106,35 @@ const createProduct = async (req, res) => {
   }
 };
 
-module.exports = { getProductBySlug, getProducts, createProduct };
+// Mettre à jour un produit avec son slug
+const updateProduct = async (req, res) => {
+  try {
+    const { slug } = req.params;
+    const { stock, description, price, imageUrls } = req.body;
+
+    const product = await Product.findOne({ slug });
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    if (stock !== undefined) product.stock = stock;
+    if (description !== undefined) product.description = description;
+    if (price !== undefined) product.price = price;
+
+    if (imageUrls !== undefined) {
+      if (!Array.isArray(imageUrls) || imageUrls.length === 0) {
+        return res.status(400).json({ message: "At least one image URL is required." });
+      }
+      product.imageUrls = imageUrls;
+    }
+
+    await product.save();
+
+    res.status(200).json({ message: "Product successfully updated" });
+  } catch (error) {
+    console.error("Error updating product:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+module.exports = { getProductBySlug, getProducts, createProduct, updateProduct };
