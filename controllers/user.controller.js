@@ -128,7 +128,8 @@ const addAddress = async (req, res) => {
   }
 
   try {
-    const { publicId, street, city, postalCode, country } = req.body;
+    const { publicId } = req.user;
+    const { street, city, postalCode, country } = req.body;
 
     const user = await User.findOne({ publicId });
     if (!user) {
@@ -148,7 +149,7 @@ const addAddress = async (req, res) => {
 // Récupérer toutes les adresses
 const getAddresses = async (req, res) => {
   try {
-    const { publicId } = req.body;
+    const { publicId } = req.user;
 
     const user = await User.findOne({ publicId });
     if (!user) {
@@ -164,14 +165,14 @@ const getAddresses = async (req, res) => {
 
 // Mettre à jour une adresse
 const updateAddress = async (req, res) => {
-  // Un doute sur index
   const requiredFields = ["index", "street", "city", "postalCode", "country"];
   if (!checkBody(req.body, requiredFields)) {
     return res.status(400).json({ message: "All fields are required" });
   }
 
   try {
-    const { publicId, index, street, city, postalCode, country } = req.body;
+    const { publicId } = req.user;
+    const { index, street, city, postalCode, country } = req.body;
 
     const user = await User.findOne({ publicId });
     if (!user) {
@@ -195,7 +196,8 @@ const updateAddress = async (req, res) => {
 // Supprimer une adresse
 const removeAddress = async (req, res) => {
   try {
-    const { publicId, index } = req.body;
+    const { publicId } = req.user;
+    const { index } = req.body;
 
     const user = await User.findOne({ publicId });
     if (!user) {
