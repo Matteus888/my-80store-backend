@@ -1,12 +1,12 @@
 const Cart = require("../models/cart.model");
 const User = require("../models/user.model");
 const Order = require("../models/order.model");
-const jwt = require("jsonwebtoken");
 
 // Créer une commande
 const createOrder = async (req, res) => {
   try {
-    const { publicId, shippingAddressIndex } = req.body;
+    const { publicId } = req.user;
+    const { shippingAddressIndex } = req.body;
 
     const user = await User.findOne({ publicId });
     if (!user) {
@@ -28,7 +28,7 @@ const createOrder = async (req, res) => {
       totalPrice += item.quantity * item.price;
     });
 
-    const newOrder = new Order({
+    const newOrderData = {
       user: user._id,
       items: cart.items.map((item) => ({
         product: item.product,
@@ -37,12 +37,29 @@ const createOrder = async (req, res) => {
       })),
       totalPrice,
       shippingAddress: shippingAddressIndex,
-    });
+    };
+
+    let existingOrder = await Order.findOne({ user: user._id }).sort({ createdAt: -1 });
+    if (existingOrder) {
+      const isSameOrder =
+        JSON.stringify(existingOrder.items) === JSON.stringify(newOrderData.items) &&
+        existingOrder.totalPrice === newOrderData.totalPrice &&
+        existingOrder.shippingAddress === newOrderData.shippingAddress;
+
+      if (isSameOrder) {
+        return res.status(200).json({ message: "Order already exists:", order: existingOrder });
+      }
+      existingOrder.items = newOrderData.items;
+      existingOrder.totalPrice = newOrderData.totalPrice;
+      existingOrder.shippingAddress = newOrderData.shippingAddress;
+
+      await existingOrder.save();
+      return res.status(201).json({ message: "Order updated successfully", order: existingOrder });
+    }
+
+    const newOrder = new Order(newOrderData);
 
     await newOrder.save();
-
-    await Cart.deleteOne({ user: user._id });
-
     res.status(201).json({ message: "Order created successfully", order: newOrder });
   } catch (error) {
     console.error("Error creating order:", error);
