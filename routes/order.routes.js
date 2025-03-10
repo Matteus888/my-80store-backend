@@ -13,11 +13,11 @@ const router = express.Router();
 // Route pour créer une commande
 router.post("/", authenticate("user"), createOrder);
 
-// Route pour récupérer toutes les commandes
-router.get("/:userId", authenticate("admin"), getOrders);
-
 // Route pour récupérer une commande spécifique
 router.get("/:id", authenticate("user"), getOrderById);
+
+// Route pour récupérer toutes les commandes
+// router.get("/:userId", authenticate("admin"), getOrders);
 
 // Route pour annuler une commande
 router.put("/:id/cancel", authenticate("user"), cancelOrder);

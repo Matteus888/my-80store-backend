@@ -91,7 +91,20 @@ const getOrderById = async (req, res) => {
       return res.status(404).json({ message: "Order not found" });
     }
 
-    res.status(200).json({ order });
+    const user = await User.findById(order.user);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const shippingAddress = user.addresses[order.shippingAddress];
+
+    const customerInfo = {
+      name: user.name,
+      email: user.email,
+      address: shippingAddress,
+    };
+
+    res.status(200).json({ order, customerInfo });
   } catch (error) {
     console.error("Error getting this order:", error);
     res.status(500).json({ message: "Server error" });
