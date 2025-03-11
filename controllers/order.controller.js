@@ -67,20 +67,6 @@ const createOrder = async (req, res) => {
   }
 };
 
-// Récupérer toutes les commandes d'un utilisateur
-const getOrders = async (req, res) => {
-  try {
-    const { userId } = req.params;
-
-    const orders = userId ? await Order.find({ user: userId }) : await Order.find();
-
-    res.status(200).json({ orders });
-  } catch (error) {
-    console.error("Error getting orders:", error);
-    res.status(500).json({ message: "Server error" });
-  }
-};
-
 // Récupérer une commande spécifique
 const getOrderById = async (req, res) => {
   try {
@@ -99,7 +85,7 @@ const getOrderById = async (req, res) => {
     const shippingAddress = user.addresses[order.shippingAddress];
 
     const customerInfo = {
-      name: user.name,
+      name: user.firstname + " " + user.lastname,
       email: user.email,
       address: shippingAddress,
     };
@@ -107,6 +93,20 @@ const getOrderById = async (req, res) => {
     res.status(200).json({ order, customerInfo });
   } catch (error) {
     console.error("Error getting this order:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+// Récupérer toutes les commandes d'un utilisateur
+const getOrders = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    const orders = userId ? await Order.find({ user: userId }) : await Order.find();
+
+    res.status(200).json({ orders });
+  } catch (error) {
+    console.error("Error getting orders:", error);
     res.status(500).json({ message: "Server error" });
   }
 };

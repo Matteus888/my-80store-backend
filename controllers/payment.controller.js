@@ -75,7 +75,7 @@ const verifyPayment = async (req, res) => {
         return res.status(404).json({ message: "Payment not found" });
       }
 
-      const order = await Order.findById(payment.order);
+      const order = await Order.findById(payment.order).populate("items.product");
       if (!order) {
         return res.status(404).json({ message: "Order not found" });
       }
@@ -101,7 +101,7 @@ const verifyPayment = async (req, res) => {
         console.error("Cart not found for user:", user._id);
       }
 
-      return res.status(200).json({ status: "paid", payment });
+      return res.status(200).json({ status: "paid", payment, order });
     } else {
       return res.status(400).json({ status: "failed" });
     }
