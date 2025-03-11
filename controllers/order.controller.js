@@ -37,24 +37,17 @@ const createOrder = async (req, res) => {
       })),
       totalPrice,
       shippingAddress: shippingAddressIndex,
+      status: "pending",
     };
 
-    let existingOrder = await Order.findOne({ user: user._id }).sort({ createdAt: -1 });
+    let existingOrder = await Order.findOne({ user: user._id, status: "pending" });
     if (existingOrder) {
-      const isSameOrder =
-        JSON.stringify(existingOrder.items) === JSON.stringify(newOrderData.items) &&
-        existingOrder.totalPrice === newOrderData.totalPrice &&
-        existingOrder.shippingAddress === newOrderData.shippingAddress;
-
-      if (isSameOrder) {
-        return res.status(200).json({ message: "Order already exists:", order: existingOrder });
-      }
       existingOrder.items = newOrderData.items;
       existingOrder.totalPrice = newOrderData.totalPrice;
       existingOrder.shippingAddress = newOrderData.shippingAddress;
 
       await existingOrder.save();
-      return res.status(201).json({ message: "Order updated successfully", order: existingOrder });
+      return res.status(200).json({ message: "Order updated successfully", order: existingOrder });
     }
 
     const newOrder = new Order(newOrderData);
