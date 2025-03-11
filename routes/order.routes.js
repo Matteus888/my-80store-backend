@@ -1,7 +1,7 @@
 const express = require("express");
 const {
   createOrder,
-  getOrders,
+  getAllMyOrders,
   getOrderById,
   cancelOrder,
   updateOrderStatus,
@@ -13,11 +13,11 @@ const router = express.Router();
 // Route pour créer une commande
 router.post("/", authenticate("user"), createOrder);
 
+// Route pour récupérer toutes les commandes d'un utilisateur
+router.get("/paid", authenticate("user"), getAllMyOrders);
+
 // Route pour récupérer une commande spécifique
 router.get("/:id", authenticate("user"), getOrderById);
-
-// Route pour récupérer toutes les commandes d'un utilisateur
-router.get("/all/:userId", authenticate("user"), getOrders);
 
 // Route pour annuler une commande
 router.put("/:id/cancel", authenticate("user"), cancelOrder);

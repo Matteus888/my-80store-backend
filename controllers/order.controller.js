@@ -91,15 +91,26 @@ const getOrderById = async (req, res) => {
 };
 
 // Récupérer toutes les commandes d'un utilisateur
-const getOrders = async (req, res) => {
+const getAllMyOrders = async (req, res) => {
+  const { publicId } = req.user;
+
   try {
-    const { userId } = req.params;
+    const user = await User.findOne({ publicId });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
 
-    const orders = userId ? await Order.find({ user: userId }) : await Order.find();
+    const paidOrders = await Order.find({ user: user._id, status: "paid" })
+      .populate({ path: "items.product", select: "name brand price" })
+      .sort({ createdAt: -1 });
 
-    res.status(200).json({ orders });
+    if (!paidOrders.length) {
+      return res.status(404).json({ message: "No paid orders found" });
+    }
+
+    res.status(200).json({ orders: paidOrders });
   } catch (error) {
-    console.error("Error getting orders:", error);
+    console.error("Error getting paid orders:", error);
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -196,4 +207,4 @@ const updateOrderStatus = async (req, res) => {
   }
 };
 
-module.exports = { createOrder, getOrders, getOrderById, cancelOrder, updateOrderStatus, markOrderAsPaid };
+module.exports = { createOrder, getAllMyOrders, getOrderById, cancelOrder, updateOrderStatus, markOrderAsPaid };
