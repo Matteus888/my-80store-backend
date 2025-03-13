@@ -1,7 +1,7 @@
 const Cart = require("../models/cart.model");
 const Product = require("../models/product.model");
+const Order = require("../models/order.model");
 const User = require("../models/user.model");
-const jwt = require("jsonwebtoken");
 
 // Récupérer le panier
 const getCart = async (req, res) => {
@@ -124,6 +124,48 @@ const updateCartItem = async (req, res) => {
   }
 };
 
+// Faire la même commande
+const reorder = async (req, res) => {
+  try {
+    const { orderId } = req.body;
+
+    const user = await User.findOne({ publicId: req.user.publicId });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const order = await Order.findOne({ _id: orderId }).populate("items.product");
+    if (!order) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+
+    const userCart =
+      (await Cart.findOne({ user: user._id })) ||
+      new Cart({
+        user: user._id,
+        items: [],
+        totalPrice: 0,
+      });
+
+    order.items.forEach((orderItem) => {
+      const existingItem = userCart.items.find((cartItem) => cartItem.product.toString() === orderItem.product._id.toString());
+      if (existingItem) {
+        existingItem.quantity += orderItem.quantity;
+      } else {
+        userCart.items.push({ product: orderItem.product._id, quantity: orderItem.quantity, price: orderItem.product.price });
+      }
+    });
+
+    userCart.totalPrice = userCart.items.reduce((sum, item) => sum + item.quantity * item.price, 0);
+
+    await userCart.save();
+    res.status(200).json({ message: "Reorder successful" });
+  } catch (error) {
+    console.error("Error during reorder:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
 // Enlever un produit du panier
 const removeFromCart = async (req, res) => {
   try {
@@ -190,4 +232,4 @@ const clearCart = async (req, res) => {
   }
 };
 
-module.exports = { getCart, addToCart, updateCartItem, removeFromCart, clearCart };
+module.exports = { getCart, addToCart, updateCartItem, reorder, removeFromCart, clearCart };
