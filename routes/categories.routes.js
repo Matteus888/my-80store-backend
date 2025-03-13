@@ -4,7 +4,7 @@ const { authenticate } = require("../middlewares/authMiddleware");
 const router = express.Router();
 
 // Route pour récupérer toutes les catégories
-router.get("/", authenticate("user"), getCategories);
+router.get("/", getCategories);
 
 // Route pour ajouter une catégorie
 router.post("/", authenticate("admin"), addCategory);
