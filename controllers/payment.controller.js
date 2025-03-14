@@ -44,6 +44,7 @@ const createPayment = async (req, res) => {
       success_url: `${process.env.CLIENT_URL}/payment-success?session_id={CHECKOUT_SESSION_ID}`, // Redirigez après succès
       cancel_url: `${process.env.CLIENT_URL}/payment-cancel`, // Redirigez après annulation
     });
+    console.log(`Session URL de succès: https://my-80store-frontend.vercel.app/payment-success?session_id=${session.id}`);
 
     // Enregistrement du paiement dans la base de données
     const payment = new Payment({
