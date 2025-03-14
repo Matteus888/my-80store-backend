@@ -9,7 +9,7 @@
   "routes": [
     {
       "src": "/payment-success",
-      "dest": "/index.html"
+      "dest": "/payment-success"
     },
     {
       "src": "/(.*)",
