@@ -23,9 +23,8 @@ app.use(
   cors({
     origin: ["http://localhost:5173", "https://my-80store-frontend.vercel.app"],
     credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Ajoutez OPTIONS
-    allowedHeaders: ["Content-Type", "Authorization", "Origin", "X-Requested-With", "Accept"], // Ajoutez plus d'en-têtes
-    exposedHeaders: ["set-cookie"], // Important pour les cookies
+    methods: "GET,POST,PUT,DELETE",
+    allowedHeaders: ["Content-Type", "Authorization"],
     optionsSuccessStatus: 200,
   })
 );
