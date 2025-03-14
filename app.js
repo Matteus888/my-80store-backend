@@ -30,16 +30,12 @@ app.use(
   })
 );
 
-// app.use((req, res, next) => {
-//   res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173");
-//   res.setHeader("Access-Control-Allow-Credentials", "true");
-//   next();
-// });
-
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
 app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "build")));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
@@ -48,5 +44,9 @@ app.use("/categories", categoriesRouter);
 app.use("/carts", cartsRouter);
 app.use("/orders", ordersRouter);
 app.use("/payments", paymentsRouter);
+
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "build", "index.html"));
+});
 
 module.exports = app;
