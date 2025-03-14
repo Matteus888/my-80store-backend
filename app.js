@@ -30,10 +30,15 @@ app.use(
   })
 );
 
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "https://my-80store-frontend.vercel.app");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  next();
+});
+
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.static(path.join(__dirname, "build")));
 
