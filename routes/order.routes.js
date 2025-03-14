@@ -20,12 +20,12 @@ router.get("/paid", authenticate("user"), getAllMyOrders);
 router.get("/:id", authenticate("user"), getOrderById);
 
 // Route pour annuler une commande
-router.put("/:id/cancel", authenticate("user"), cancelOrder);
+// router.put("/:id/cancel", authenticate("user"), cancelOrder);
 
 // Route pour marquer une commande comme payée
-router.put("/:id/pay", authenticate("user"), markOrderAsPaid);
+// router.put("/:id/pay", authenticate("user"), markOrderAsPaid);
 
 // Route pour mettre à jour le status d'une commande
-router.put("/:id/status", authenticate("admin"), updateOrderStatus);
+// router.put("/:id/status", authenticate("admin"), updateOrderStatus);
 
 module.exports = router;
