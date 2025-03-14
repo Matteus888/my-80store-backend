@@ -44,7 +44,7 @@ app.use("/payments", paymentsRouter);
 
 // Si tu application est une Single Page Application, cette ligne redirige vers ton index HTML
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../dist/index.html"));
+  res.sendFile(path.resolve(__dirname, "../dist/index.html"));
 });
 
 module.exports = app;
