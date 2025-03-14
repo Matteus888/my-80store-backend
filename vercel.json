@@ -8,8 +8,12 @@
   ],
   "routes": [
     {
+      "src": "/payment-success",
+      "dest": "/index.html"
+    },
+    {
       "src": "/(.*)",
-      "dest": "/app.js"
+      "dest": "/index.html"
     }
   ]
 }
