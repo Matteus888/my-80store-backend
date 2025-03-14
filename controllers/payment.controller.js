@@ -41,8 +41,8 @@ const createPayment = async (req, res) => {
       payment_method_types: ["card"],
       line_items: lineItems,
       mode: "payment",
-      success_url: `${process.env.CLIENT_URL}/payment-success?session_id={CHECKOUT_SESSION_ID}`, // Redirigez après succès
-      cancel_url: `${process.env.CLIENT_URL}/payment-cancel`, // Redirigez après annulation
+      success_url: `${process.env.CLIENT_URL}/PaymentSuccess?session_id={CHECKOUT_SESSION_ID}`, // Redirigez après succès
+      cancel_url: `${process.env.CLIENT_URL}/PaymentCancel`, // Redirigez après annulation
     });
 
     // Enregistrement du paiement dans la base de données
