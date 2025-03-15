@@ -29,18 +29,6 @@ app.use(
   })
 );
 
-app.use((req, res, next) => {
-  // Supprimez d'abord tout en-tête CSP existant
-  res.removeHeader("Content-Security-Policy");
-  res.removeHeader("Content-Security-Policy-Report-Only");
-
-  res.setHeader(
-    "Content-Security-Policy-Report-Only",
-    "default-src 'self'; font-src * data:;" // Autoriser toutes les sources de polices pour le débogage
-  );
-  next();
-});
-
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
