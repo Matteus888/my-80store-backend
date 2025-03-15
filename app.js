@@ -30,7 +30,15 @@ app.use(
 );
 
 app.use((req, res, next) => {
-  res.setHeader("Content-Security-Policy", "default-src 'self'; font-src 'self' https://js.stripe.com;");
+  res.setHeader(
+    "Content-Security-Policy-Report-Only", // Utilisez Report-Only pour déboguer sans bloquer
+    "default-src 'self'; " +
+      "font-src 'self' https://js.stripe.com https://fonts.gstatic.com data:; " +
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com; " +
+      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
+      "img-src 'self' data: https:; " +
+      "connect-src 'self' https://api.stripe.com https://js.stripe.com;"
+  );
   next();
 });
 
