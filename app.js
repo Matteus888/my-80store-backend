@@ -30,14 +30,13 @@ app.use(
 );
 
 app.use((req, res, next) => {
+  // Supprimez d'abord tout en-tête CSP existant
+  res.removeHeader("Content-Security-Policy");
+  res.removeHeader("Content-Security-Policy-Report-Only");
+
   res.setHeader(
-    "Content-Security-Policy-Report-Only", // Utilisez Report-Only pour déboguer sans bloquer
-    "default-src 'self'; " +
-      "font-src 'self' https://js.stripe.com https://fonts.gstatic.com data:; " +
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com; " +
-      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; " +
-      "img-src 'self' data: https:; " +
-      "connect-src 'self' https://api.stripe.com https://js.stripe.com;"
+    "Content-Security-Policy-Report-Only",
+    "default-src 'self'; font-src * data:;" // Autoriser toutes les sources de polices pour le débogage
   );
   next();
 });
