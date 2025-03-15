@@ -6,6 +6,11 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 
+app.use((req, res, next) => {
+  res.setHeader("Content-Security-Policy", "default-src 'self'; font-src 'self' https://js.stripe.com;");
+  next();
+});
+
 const indexRouter = require("./routes/index.routes");
 const usersRouter = require("./routes/users.routes");
 const productsRouter = require("./routes/products.routes");
