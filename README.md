@@ -77,8 +77,3 @@ La structure du projet est la suivante :
 ## Lien vers le frontend
 
 [My 80's Store - Frontend](https://my-80store-frontend.vercel.app/)
-
-## License
-
-Ce projet est sous licence MIT. Voir le fichier [LICENSE](./LICENSE) pour plus de détails.
-
