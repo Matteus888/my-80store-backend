@@ -14,7 +14,7 @@ Avant de lancer le projet, assurez-vous d'avoir les outils suivants installés :
 
 1. Clonez ce repository :
    ```bash
-   git clone https://github.com/votre-utilisateur/my-80s-store-backend.git
+   git clone https://github.com/Matteus888/my-80s-store-backend.git
    ```
 2. Accédez au dossier du projet :
    ```bash
@@ -77,3 +77,13 @@ La structure du projet est la suivante :
 ## Lien vers le frontend
 
 [My 80's Store - Frontend](https://my-80store-frontend.vercel.app/)
+
+## Contribution
+
+Les contributions sont les bienvenues ! Si vous souhaitez contribuer :
+
+1. Forkez le projet
+2. Créez une branche pour votre fonctionnalité : `git checkout -b nouvelle-fonctionnalite`
+3. Commitez vos changements : `git commit -m "Ajout d'une nouvelle fonctionnalité"`
+4. Poussez vos modifications : `git push origin nouvelle-fonctionnalite`
+5. Créez une Pull Request
