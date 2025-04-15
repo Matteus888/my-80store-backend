@@ -5,6 +5,7 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 // Middleware pour vérifier le token venant des cookies
 const authenticate = (requiredRole) => {
+  console.log("RequiredRole: ", requiredRole);
   return function (req, res, next) {
     const token = req.cookies.token;
     if (!token) {
