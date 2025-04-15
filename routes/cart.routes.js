@@ -7,7 +7,7 @@ const router = express.Router();
 router.get("/", authenticate("user"), getCart);
 
 // Route pour ajouter un produit au panier
-router.post("/add", addToCart);
+router.post("/add", authenticate("user"), addToCart);
 
 // Route pour mettre à jour la quantité d'un produit dans le panier
 router.put("/update", authenticate("user"), updateCartItem);
