@@ -1,4 +1,4 @@
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user.model");
 const { checkBody } = require("../middlewares/checkBody");
@@ -29,7 +29,9 @@ const register = async (req, res) => {
 
     const savedUser = await newUser.save();
 
-    const token = jwt.sign({ publicId: savedUser.publicId, email: savedUser.email, role: savedUser.role }, JWT_SECRET, { expiresIn: "1d" });
+    const token = jwt.sign({ publicId: savedUser.publicId, email: savedUser.email, role: savedUser.role }, JWT_SECRET, {
+      expiresIn: "1d",
+    });
 
     res.cookie("token", token, {
       httpOnly: true,
@@ -74,7 +76,9 @@ const login = async (req, res) => {
       return res.status(401).json({ message: "Wrong password" });
     }
 
-    const token = jwt.sign({ publicId: user.publicId, email: user.email, role: user.role }, JWT_SECRET, { expiresIn: "1d" });
+    const token = jwt.sign({ publicId: user.publicId, email: user.email, role: user.role }, JWT_SECRET, {
+      expiresIn: "1d",
+    });
 
     res.cookie("token", token, {
       httpOnly: true,
@@ -85,7 +89,13 @@ const login = async (req, res) => {
 
     res.status(200).json({
       message: "Login successful",
-      user: { firstname: user.firstname, lastname: user.lastname, email: user.email, publicId: user.publicId, role: user.role },
+      user: {
+        firstname: user.firstname,
+        lastname: user.lastname,
+        email: user.email,
+        publicId: user.publicId,
+        role: user.role,
+      },
     });
   } catch (error) {
     console.error("Error during login:", error);
