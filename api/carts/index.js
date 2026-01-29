@@ -1,6 +1,6 @@
 import connectDB from "../../config/connection.js";
 import common from "../_middlewares/common.js";
-import { authenticate } from "../../middlewares/auth.js";
+import authenticate from "../../middlewares/auth.js";
 
 import {
   getCart,
