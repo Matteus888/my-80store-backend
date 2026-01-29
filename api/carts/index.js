@@ -1,5 +1,5 @@
 import connectDB from "../../config/connection";
-import authMiddleware from "../../middlewares/auth.middleware";
+import authMiddleware from "../../middlewares/authMiddleware";
 import {
   getCart,
   addToCart,

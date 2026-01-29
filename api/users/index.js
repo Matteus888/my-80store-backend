@@ -12,7 +12,7 @@ import {
   removeAddress,
 } from "../../controllers/user.controller";
 
-import authMiddleware from "../../middlewares/auth";
+import authMiddleware from "../../middlewares/authMiddleware";
 
 export default async function handler(req, res) {
   // CORS
