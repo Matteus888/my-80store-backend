@@ -1,6 +1,7 @@
 const Cart = require("../models/cart.model");
 const User = require("../models/user.model");
 const Order = require("../models/order.model");
+const Product = require("../models/product.model");
 
 // Créer une commande
 const createOrder = async (req, res) => {
