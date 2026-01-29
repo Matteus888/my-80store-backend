@@ -4,40 +4,34 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 
 require("dotenv").config();
-require("../config/connection");
+require("./config/connection");
 
-const indexRouter = require("../routes/index.routes");
-const usersRouter = require("../routes/users.routes");
-const productsRouter = require("../routes/products.routes");
-const categoriesRouter = require("../routes/categories.routes");
-const cartsRouter = require("../routes/cart.routes");
-const ordersRouter = require("../routes/order.routes");
-const paymentsRouter = require("../routes/payment.routes");
+const indexRouter = require("./routes/index.routes");
+const usersRouter = require("./routes/users.routes");
+const productsRouter = require("./routes/products.routes");
+const categoriesRouter = require("./routes/categories.routes");
+const cartsRouter = require("./routes/cart.routes");
+const ordersRouter = require("./routes/order.routes");
+const paymentsRouter = require("./routes/payment.routes");
 
 const app = express();
 
-// === Middleware CORS compatible Vercel ===
-const corsMiddleware = (req, res, next) => {
-  const allowedOrigins = ["http://localhost:5173", "https://my-80store-frontend.vercel.app"];
-  const origin = req.headers.origin;
+// --- Middleware CORS global ---
+const allowedOrigins = ["http://localhost:5173", "https://my-80store-frontend.vercel.app"];
 
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
   if (allowedOrigins.includes(origin)) {
     res.setHeader("Access-Control-Allow-Origin", origin);
   }
-
   res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type,Authorization,X-Requested-With");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type,Authorization");
   res.setHeader("Access-Control-Allow-Credentials", "true");
 
-  if (req.method === "OPTIONS") {
-    // répondre immédiatement pour les preflight
-    return res.status(200).end();
-  }
-
+  if (req.method === "OPTIONS") return res.status(200).end();
   next();
-};
+});
 
-app.use(corsMiddleware);
 // const corsOptions = {
 //   origin: ["http://localhost:5173", "https://my-80store-frontend.vercel.app"],
 //   credentials: true,
