@@ -1,53 +1,28 @@
-// /api/products/index.js
 import connectDB from "../../config/connection.js";
-import { authenticate } from "../../middlewares/auth.js"; // middleware auth si besoin
+import common from "../_middlewares/common.js";
 import { getProducts, getProductBySlug, createProduct, updateProduct } from "../../controllers/product.controller.js";
 
 export default async function handler(req, res) {
-  // ⚡ CORS pour le front
-  res.setHeader("Access-Control-Allow-Origin", "https://my-80store-frontend.vercel.app");
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-
-  if (req.method === "OPTIONS") {
-    return res.status(200).end();
-  }
-
+  common(req, res);
   await connectDB();
 
   const { action, slug } = req.query;
-  if (slug) req.params = { slug }; // pour getProductBySlug et updateProduct
 
   try {
-    // GET /api/products
-    if (req.method === "GET" && !action) {
-      return await getProducts(req, res);
-    }
-
-    // GET /api/products?action=bySlug&slug=xxx
+    if (req.method === "GET" && !action) return getProducts(req, res);
     if (req.method === "GET" && action === "bySlug") {
-      return await getProductBySlug(req, res);
+      req.params = { slug };
+      return getProductBySlug(req, res);
     }
-
-    // 💳 Routes protégées : création ou mise à jour
-    if (req.method === "POST" && action === "create") {
-      await authenticate()(req, res, async () => {
-        return await createProduct(req, res);
-      });
-      return;
-    }
-
+    if (req.method === "POST" && action === "create") return createProduct(req, res);
     if (req.method === "PUT" && action === "update") {
-      await authenticate()(req, res, async () => {
-        return await updateProduct(req, res);
-      });
-      return;
+      req.params = { slug };
+      return updateProduct(req, res);
     }
 
     res.status(404).json({ message: "Route not found" });
-  } catch (error) {
-    console.error("Products API error:", error);
+  } catch (err) {
+    console.error("Products API error:", err);
     res.status(500).json({ message: "Server error" });
   }
 }

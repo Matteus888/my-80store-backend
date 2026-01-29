@@ -1,5 +1,7 @@
 import connectDB from "../../config/connection.js";
-import { authenticate } from "../../middlewares/auth.js"; // ton middleware auth
+import common from "../_middlewares/common.js";
+import { authenticate } from "../../middlewares/auth.js";
+
 import {
   createOrder,
   getAllMyOrders,
@@ -10,62 +12,27 @@ import {
 } from "../../controllers/order.controller.js";
 
 export default async function handler(req, res) {
-  // ⚡ CORS pour le front
-  res.setHeader("Access-Control-Allow-Origin", "https://my-80store-frontend.vercel.app");
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-
-  if (req.method === "OPTIONS") {
-    return res.status(200).end();
-  }
-
+  common(req, res);
   await connectDB();
 
   const { action, id } = req.query;
-  if (id) req.params = { id }; // pour les controllers existants
+
+  const isAuth = await authenticate(req, res);
+  if (!isAuth) return;
+
+  if (id) req.params = { id };
 
   try {
-    // 🔐 Toutes les routes nécessitent un utilisateur connecté
-    let isAuthenticated = false;
-    await authenticate()(req, res, () => {
-      isAuthenticated = true;
-    });
-    if (!isAuthenticated) return; // réponse déjà envoyée par le middleware
-
-    // ➕ Créer une commande
-    if (req.method === "POST" && action === "create") {
-      return await createOrder(req, res);
-    }
-
-    // 📦 Toutes mes commandes
-    if (req.method === "GET" && action === "my") {
-      return await getAllMyOrders(req, res);
-    }
-
-    // 🔍 Une commande précise
-    if (req.method === "GET" && action === "byId") {
-      return await getOrderById(req, res);
-    }
-
-    // ❌ Annuler une commande
-    if (req.method === "PUT" && action === "cancel") {
-      return await cancelOrder(req, res);
-    }
-
-    // 💰 Marquer comme payée
-    if (req.method === "PUT" && action === "markPaid") {
-      return await markOrderAsPaid(req, res);
-    }
-
-    // 🔄 Mettre à jour le statut
-    if (req.method === "PUT" && action === "updateStatus") {
-      return await updateOrderStatus(req, res);
-    }
+    if (req.method === "POST" && action === "create") return createOrder(req, res);
+    if (req.method === "GET" && action === "my") return getAllMyOrders(req, res);
+    if (req.method === "GET" && action === "byId") return getOrderById(req, res);
+    if (req.method === "PUT" && action === "cancel") return cancelOrder(req, res);
+    if (req.method === "PUT" && action === "markPaid") return markOrderAsPaid(req, res);
+    if (req.method === "PUT" && action === "updateStatus") return updateOrderStatus(req, res);
 
     res.status(405).json({ message: "Method or action not allowed" });
-  } catch (error) {
-    console.error("Error in /api/orders:", error);
+  } catch (err) {
+    console.error("Orders API error:", err);
     res.status(500).json({ message: "Server error" });
   }
 }

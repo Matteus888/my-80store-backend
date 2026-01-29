@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const connectionString = process.env.MONGODB_CONNECTION_STRING;
 
@@ -12,17 +12,27 @@ const options = {
   serverSelectionTimeoutMS: 2000,
 };
 
-mongoose
-  .connect(connectionString, options)
-  .then(() => {
-    console.log("✅ my-80store database connected");
-  })
-  .catch((error) => {
-    console.error("❌ Error to connect database", error);
-    setTimeout(() => {
-      mongoose.connect(connectionString, options);
-    }, 2000);
-  });
+let cached = global.mongoose;
+
+if (!cached) {
+  cached = global.mongoose = { conn: null, promise: null };
+}
+
+async function connectDB() {
+  if (cached.conn) {
+    return cached.conn;
+  }
+
+  if (!cached.promise) {
+    cached.promise = mongoose.connect(connectionString, options).then((mongoose) => {
+      console.log("✅ my-80store database connected");
+      return mongoose;
+    });
+  }
+
+  cached.conn = await cached.promise;
+  return cached.conn;
+}
 
 mongoose.set("debug", false);
 
@@ -37,3 +47,5 @@ mongoose.connection.on("error", (error) => {
 mongoose.connection.on("disconnected", () => {
   console.log("MongoDB disconnected");
 });
+
+export default connectDB;

@@ -1,43 +1,29 @@
-import "../../config/connection.js";
+import connectDB from "../../config/connection.js";
+import common from "../_middlewares/common.js";
+import { authenticate } from "../../middlewares/auth.js";
+
 import { createPayment, verifyPayment } from "../../controllers/payment.controller.js";
-import { authenticate } from "../../middlewares/auth.js"; // si tu veux protéger les paiements
 
 export default async function handler(req, res) {
-  // ⚡ CORS
-  res.setHeader("Access-Control-Allow-Origin", "https://my-80store-frontend.vercel.app");
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  common(req, res);
+  await connectDB();
 
-  if (req.method === "OPTIONS") {
-    return res.status(200).end();
-  }
+  const isAuth = await authenticate(req, res);
+  if (!isAuth) return;
 
   const { action, sessionId } = req.query;
-  if (sessionId) req.params = { sessionId }; // pour les controllers existants
+  if (sessionId) req.params = { sessionId };
 
   try {
-    // 👤 Middleware auth si nécessaire
-    const isAuthenticated = await authenticate(req, res);
-    if (!isAuthenticated) return; // réponse déjà envoyée par authenticate si token invalide
-
-    // 💳 Créer un paiement
-    if (req.method === "POST" && action === "create") {
-      return await createPayment(req, res);
-    }
-
-    // 🔍 Vérifier un paiement
+    if (req.method === "POST" && action === "create") return createPayment(req, res);
     if (req.method === "GET" && action === "verify") {
-      if (!sessionId) {
-        return res.status(400).json({ message: "sessionId is required" });
-      }
-      return await verifyPayment(req, res);
+      if (!sessionId) return res.status(400).json({ message: "sessionId is required" });
+      return verifyPayment(req, res);
     }
 
-    res.setHeader("Allow", ["GET", "POST", "OPTIONS"]);
     res.status(405).json({ message: "Method or action not allowed" });
-  } catch (error) {
-    console.error("Error in /api/payments:", error);
+  } catch (err) {
+    console.error("Payments API error:", err);
     res.status(500).json({ message: "Server error" });
   }
 }
