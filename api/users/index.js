@@ -1,6 +1,6 @@
-import connectDB from "../../config/connection.js";
+import "../../config/connection.js";
 import common from "../_middlewares/common.js";
-import { authenticate } from "../../middlewares/auth.js";
+import authenticate from "../../middlewares/auth.js";
 
 import {
   register,
@@ -14,15 +14,13 @@ import {
 } from "../../controllers/user.controller.js";
 
 export default async function handler(req, res) {
-  // CORS
-  if (common(req, res)) return;
-
-  await connectDB();
+  common(req, res);
+  if (res.writableEnded) return;
 
   const { action } = req.query;
 
   try {
-    // -------- PUBLIC --------
+    // ---------- PUBLIC ----------
     if (req.method === "POST" && action === "login") {
       return await login(req, res);
     }
@@ -35,11 +33,9 @@ export default async function handler(req, res) {
       return await logout(req, res);
     }
 
-    // -------- AUTH REQUIRED --------
-    const isAuth = await authenticate(req);
-    if (!isAuth) {
-      return res.status(401).json({ message: "Unauthorized" });
-    }
+    // ---------- PROTECTED ----------
+    const ok = await authenticate(req, res);
+    if (!ok) return;
 
     if (req.method === "GET" && action === "me") {
       return await getInfos(req, res);
@@ -62,8 +58,8 @@ export default async function handler(req, res) {
     }
 
     return res.status(404).json({ message: "Route not found" });
-  } catch (error) {
-    console.error("Users API error:", error);
+  } catch (err) {
+    console.error("Users API error:", err);
     return res.status(500).json({ message: "Server error" });
   }
 }
