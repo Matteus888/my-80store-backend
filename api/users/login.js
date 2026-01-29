@@ -1,4 +1,4 @@
-import { login } from "../../../controllers/user.controller.js";
+import { login } from "../../controllers/user.controller.js";
 
 const allowedOrigins = ["http://localhost:5173", "https://my-80store-frontend.vercel.app"];
 
