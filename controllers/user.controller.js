@@ -5,6 +5,16 @@ const { checkBody } = require("../middlewares/checkBody");
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
+// --- Helper pour créer le cookie ---
+const sendTokenCookie = (res, token) => {
+  res.cookie("token", token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production", // true en prod HTTPS
+    sameSite: "None", // obligatoire cross-site
+    maxAge: 24 * 60 * 60 * 1000, // 1 jour
+  });
+};
+
 // Inscription
 const register = async (req, res) => {
   const requiredFields = ["firstname", "lastname", "email", "password"];
@@ -33,12 +43,14 @@ const register = async (req, res) => {
       expiresIn: "1d",
     });
 
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: true,
-      sameSite: "None",
-      maxAge: 24 * 60 * 60 * 1000, // 1 jour
-    });
+    sendTokenCookie(res, token);
+
+    // res.cookie("token", token, {
+    //   httpOnly: true,
+    //   secure: true,
+    //   sameSite: "None",
+    //   maxAge: 24 * 60 * 60 * 1000, // 1 jour
+    // });
 
     res.status(201).json({
       message: "User registered successfully",
@@ -80,12 +92,14 @@ const login = async (req, res) => {
       expiresIn: "1d",
     });
 
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "None",
-      maxAge: 24 * 60 * 60 * 1000, // 1 jour
-    });
+    sendTokenCookie(res, token);
+
+    // res.cookie("token", token, {
+    //   httpOnly: true,
+    //   secure: true,
+    //   sameSite: "None",
+    //   maxAge: 24 * 60 * 60 * 1000, // 1 jour
+    // });
 
     res.status(200).json({
       message: "Login successful",
@@ -108,7 +122,7 @@ const logout = async (req, res) => {
   res.clearCookie("token", {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "Strict",
+    sameSite: "None",
   });
   return res.status(200).json({ message: "Succefully logout" });
 };
