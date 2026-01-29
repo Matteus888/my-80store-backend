@@ -1,12 +1,23 @@
-import common from "../_middlewares/common";
-import "../../config/connection";
-
-import { getProducts, getProductBySlug, createProduct, updateProduct } from "../../controllers/product.controller";
+// /api/products/index.js
+import connectDB from "../../config/connection.js";
+import { authenticate } from "../../middlewares/auth.js"; // middleware auth si besoin
+import { getProducts, getProductBySlug, createProduct, updateProduct } from "../../controllers/product.controller.js";
 
 export default async function handler(req, res) {
-  common(req, res);
+  // ⚡ CORS pour le front
+  res.setHeader("Access-Control-Allow-Origin", "https://my-80store-frontend.vercel.app");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
+
+  await connectDB();
 
   const { action, slug } = req.query;
+  if (slug) req.params = { slug }; // pour getProductBySlug et updateProduct
 
   try {
     // GET /api/products
@@ -16,19 +27,22 @@ export default async function handler(req, res) {
 
     // GET /api/products?action=bySlug&slug=xxx
     if (req.method === "GET" && action === "bySlug") {
-      req.params = { slug };
       return await getProductBySlug(req, res);
     }
 
-    // POST /api/products?action=create
+    // 💳 Routes protégées : création ou mise à jour
     if (req.method === "POST" && action === "create") {
-      return await createProduct(req, res);
+      await authenticate()(req, res, async () => {
+        return await createProduct(req, res);
+      });
+      return;
     }
 
-    // PUT /api/products?action=update&slug=xxx
     if (req.method === "PUT" && action === "update") {
-      req.params = { slug };
-      return await updateProduct(req, res);
+      await authenticate()(req, res, async () => {
+        return await updateProduct(req, res);
+      });
+      return;
     }
 
     res.status(404).json({ message: "Route not found" });

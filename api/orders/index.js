@@ -1,4 +1,5 @@
-import "../../config/connection.js";
+import connectDB from "../../config/connection.js";
+import { authenticate } from "../../middlewares/auth.js"; // ton middleware auth
 import {
   createOrder,
   getAllMyOrders,
@@ -9,7 +10,7 @@ import {
 } from "../../controllers/order.controller.js";
 
 export default async function handler(req, res) {
-  // ⚡ CORS
+  // ⚡ CORS pour le front
   res.setHeader("Access-Control-Allow-Origin", "https://my-80store-frontend.vercel.app");
   res.setHeader("Access-Control-Allow-Credentials", "true");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, OPTIONS");
@@ -19,12 +20,19 @@ export default async function handler(req, res) {
     return res.status(200).end();
   }
 
-  const { action, id } = req.query;
+  await connectDB();
 
-  // simule req.params pour les controllers existants
-  if (id) req.params = { id };
+  const { action, id } = req.query;
+  if (id) req.params = { id }; // pour les controllers existants
 
   try {
+    // 🔐 Toutes les routes nécessitent un utilisateur connecté
+    let isAuthenticated = false;
+    await authenticate()(req, res, () => {
+      isAuthenticated = true;
+    });
+    if (!isAuthenticated) return; // réponse déjà envoyée par le middleware
+
     // ➕ Créer une commande
     if (req.method === "POST" && action === "create") {
       return await createOrder(req, res);

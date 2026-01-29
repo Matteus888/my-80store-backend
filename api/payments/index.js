@@ -1,5 +1,6 @@
 import "../../config/connection.js";
 import { createPayment, verifyPayment } from "../../controllers/payment.controller.js";
+import { authenticate } from "../../middlewares/auth.js"; // si tu veux protéger les paiements
 
 export default async function handler(req, res) {
   // ⚡ CORS
@@ -13,9 +14,13 @@ export default async function handler(req, res) {
   }
 
   const { action, sessionId } = req.query;
-  if (sessionId) req.params = { sessionId }; // pour le controller existant
+  if (sessionId) req.params = { sessionId }; // pour les controllers existants
 
   try {
+    // 👤 Middleware auth si nécessaire
+    const isAuthenticated = await authenticate(req, res);
+    if (!isAuthenticated) return; // réponse déjà envoyée par authenticate si token invalide
+
     // 💳 Créer un paiement
     if (req.method === "POST" && action === "create") {
       return await createPayment(req, res);
@@ -29,6 +34,7 @@ export default async function handler(req, res) {
       return await verifyPayment(req, res);
     }
 
+    res.setHeader("Allow", ["GET", "POST", "OPTIONS"]);
     res.status(405).json({ message: "Method or action not allowed" });
   } catch (error) {
     console.error("Error in /api/payments:", error);
