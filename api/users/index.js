@@ -1,4 +1,4 @@
-import "../../config/connection.js";
+import connectDB from "../../config/connection.js";
 import common from "../_middlewares/common.js";
 import authenticate from "../../middlewares/auth.js";
 
@@ -16,6 +16,8 @@ import {
 export default async function handler(req, res) {
   common(req, res);
   if (res.writableEnded) return;
+
+  await connectDB();
 
   const { action } = req.query;
 
