@@ -2,22 +2,19 @@ import jwt from "jsonwebtoken";
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
-// Middleware async pour serverless
-export async function authenticate(req, res) {
+export async function authenticate(req) {
   const token = req.cookies?.token;
 
   if (!token) {
-    res.status(401).json({ error: "No token provided, access denied." });
     return false;
   }
 
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
     req.user = decoded;
-    return true; // auth OK
+    return true;
   } catch (err) {
-    console.error("Token verification failed:", err);
-    res.status(401).json({ message: "Invalid or expired token" });
+    console.error("JWT error:", err);
     return false;
   }
 }
