@@ -57,7 +57,9 @@ const addToCart = async (req, res) => {
 
       if (existingItem) {
         if (existingItem.quantity + 1 > product.stock) {
-          return res.status(400).json({ message: `You can't add more than ${product.stock} items to your cart. Insufficient stock.` });
+          return res
+            .status(400)
+            .json({ message: `You can't add more than ${product.stock} items to your cart. Insufficient stock.` });
         }
         existingItem.quantity += 1;
       } else {
@@ -148,11 +150,17 @@ const reorder = async (req, res) => {
       });
 
     order.items.forEach((orderItem) => {
-      const existingItem = userCart.items.find((cartItem) => cartItem.product.toString() === orderItem.product._id.toString());
+      const existingItem = userCart.items.find(
+        (cartItem) => cartItem.product.toString() === orderItem.product._id.toString(),
+      );
       if (existingItem) {
         existingItem.quantity += orderItem.quantity;
       } else {
-        userCart.items.push({ product: orderItem.product._id, quantity: orderItem.quantity, price: orderItem.product.price });
+        userCart.items.push({
+          product: orderItem.product._id,
+          quantity: orderItem.quantity,
+          price: orderItem.product.price,
+        });
       }
     });
 
@@ -170,7 +178,7 @@ const reorder = async (req, res) => {
 const removeFromCart = async (req, res) => {
   try {
     const publicId = req.user.publicId;
-    const { slug } = req.params;
+    const { slug } = req.query;
 
     const user = await User.findOne({ publicId });
     if (!user) {
