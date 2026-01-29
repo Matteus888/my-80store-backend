@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 const MONGODB_URI = process.env.MONGODB_CONNECTION_STRING;
+console.log("MONGO URI:", process.env.MONGODB_CONNECTION_STRING);
 
 if (!MONGODB_URI) {
   throw new Error("❌ MONGODB_CONNECTION_STRING is missing");
