@@ -1,6 +1,6 @@
 import "../../config/connection.js";
 import common from "../_middlewares/common.js"; // ton helper CORS
-import { authenticate } from "../../middlewares/auth.js"; // notre middleware auth serverless
+import authenticate from "../../middlewares/auth.js"; // notre middleware auth serverless
 
 import {
   register,
