@@ -1,23 +1,39 @@
-import "../../config/connection.js";
-import { getProducts, createProduct } from "../../controllers/product.controller.js";
+import common from "../_middlewares/common";
+import "../../config/connection";
+
+import { getProducts, getProductBySlug, createProduct, updateProduct } from "../../controllers/product.controller";
 
 export default async function handler(req, res) {
-  res.setHeader("Access-Control-Allow-Origin", "https://my-80store-frontend.vercel.app");
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  common(req, res);
 
-  if (req.method === "OPTIONS") {
-    res.status(200).end();
-    return;
-  }
+  const { action, slug } = req.query;
 
-  if (req.method === "GET") {
-    await getProducts(req, res);
-  } else if (req.method === "POST") {
-    await createProduct(req, res);
-  } else {
-    res.setHeader("Allow", ["GET", "POST", "OPTIONS"]);
-    res.status(405).json({ message: `Method ${req.method} not allowed` });
+  try {
+    // GET /api/products
+    if (req.method === "GET" && !action) {
+      return await getProducts(req, res);
+    }
+
+    // GET /api/products?action=bySlug&slug=xxx
+    if (req.method === "GET" && action === "bySlug") {
+      req.params = { slug };
+      return await getProductBySlug(req, res);
+    }
+
+    // POST /api/products?action=create
+    if (req.method === "POST" && action === "create") {
+      return await createProduct(req, res);
+    }
+
+    // PUT /api/products?action=update&slug=xxx
+    if (req.method === "PUT" && action === "update") {
+      req.params = { slug };
+      return await updateProduct(req, res);
+    }
+
+    res.status(404).json({ message: "Route not found" });
+  } catch (error) {
+    console.error("Products API error:", error);
+    res.status(500).json({ message: "Server error" });
   }
 }
