@@ -19,8 +19,8 @@ const app = express();
 const corsOptions = {
   origin: ["http://localhost:5173", "https://my-80store-frontend.vercel.app"],
   credentials: true,
-  methods: "GET,POST,PUT,DELETE,OPTIONS",
-  allowedHeaders: ["Content-Type", "Authorization"],
+  methods: ["GET,POST,PUT,DELETE,OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
 };
 
 app.use(cors(corsOptions));
